@@ -1,0 +1,175 @@
+P {
+	font-size: 12px;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 135%;
+	font-variant: normal;
+	font: normal sans-serif;
+	margin-top: 11px;
+	margin-bottom: 11px;
+}
+
+pre, code {
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+}
+
+code {
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+}
+
+ul {
+	font-size: 12px;
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-weight: normal;
+	font-style: normal;
+}
+
+ol {
+	font-size: 12px;
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-weight: normal;
+	font-style: normal;
+}
+
+a.s {
+	padding-left: 19px;
+	background-image: url(Images/Shortcut.gif);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	font-style: normal;
+	text-decoration: none;
+	color: #0000aa;
+}
+
+a.s:hover {
+	text-decoration: underline;
+	color: #0000aa;
+}
+
+li {
+	padding-bottom: 0.5em;
+}
+
+li.b {
+	padding-bottom: 0.5em;
+	font-weight: bolder;
+}
+
+li.s {
+	padding-bottom: 0.0em;
+}
+
+hr {
+	width: 100%;
+	color: #6699CC;
+	height: 4px;
+	background-color: #6699CC;
+	border: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+tr.dark {
+	border-top: 0px;
+	background-color: #e0e0e0;
+	height: 20px;
+}
+
+tr.plain {
+	border-top: 0px;
+}
+
+tr {
+	border-top: solid 1px #c0c0c0;
+}
+
+td.plain {
+	border-left: 0px;
+	padding-left: 2px;
+}
+
+td, th {
+	border-left: solid 1px #c0c0c0;
+	padding-left: 4px;
+}
+ 
+tt {
+	color: Black;
+	background-image: url(Images/Shortcut.gif);
+	background-position: left;
+	background-color: #d0d0d0;
+	background: #d0d0d0;
+	font-size: 12px;
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	text-indent: 1.5em;
+}
+
+H1 {
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-weight: bolder;
+	font-style: normal;
+	font-size: 24px;
+	margin-top: 4px;
+}
+
+H2 {
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-weight: bolder;
+	font-style: normal;
+	font-size: 18px;
+}
+
+H3 {
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-weight: bolder;
+	font-style: normal;
+	font-size: 12px;
+	margin-top: 20px;
+	margin-bottom: 11px;
+}
+
+a {
+	font-weight: normal;
+	font-style: normal;
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-size: 12px;
+	color: #0000b0;
+	text-decoration: none;
+}
+
+a:visited {
+}
+
+a:active {
+	color: #0000b0;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #0000b0;
+}
+
+BODY {
+	font-size: 12px;
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 135%;
+	background: white;
+	background-color: white;
+	color: Black;
+}
+
+img.frame {
+	border-color: #b0b0b0;
+	border-width: 1px;
+}

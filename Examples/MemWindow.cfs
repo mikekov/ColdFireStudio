@@ -1,0 +1,12 @@
+	*= $10000
+
+	move.l #0, a0
+	move.l #$10, a1
+.next
+	add.l a1, a0
+	cmp.l #$1000, a0
+	blo.s .next
+
+	clr.w -(sp)
+	trap #15
+

@@ -1,0 +1,9 @@
+
+	*= $1000
+
+test	= * + 2
+
+test2	= *
+
+	move.l test, d0
+	nop

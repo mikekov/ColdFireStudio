@@ -1,0 +1,15 @@
+; Title: 
+
+	*= $10000
+
+Start:
+	bra.s .next
+
+	dcb.l 100, 0
+
+.next
+	; terminate program
+	clr.w -(sp)
+	trap #15
+
+	end Start

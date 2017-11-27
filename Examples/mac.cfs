@@ -1,0 +1,11 @@
+; Title: MAC test
+
+	*= $10000
+
+Start:
+;	mac.w a0, d7 >>
+;	mac.l d3, d7 <<
+
+	mvz.w (a0), d3
+
+	end Start

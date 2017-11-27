@@ -1,0 +1,142 @@
+	include "Monitor.cfs"
+
+;	repeat 10000
+
+	*= $10000
+
+.start
+	nop
+
+	M_Clear
+
+	lea msg(pc), a0
+	M_PutS
+
+	move.l #$1234abcd, d0
+	moveq #4, d1
+	M_PutHex
+
+	moveq #10, d0
+	M_PutC
+
+	move.l #-123456789, d0
+	M_PutInt
+
+	moveq #10, d0
+	M_PutC
+
+	move.l #-200, d0
+	M_PutInt
+
+	moveq #10, d0
+	M_PutC
+
+	move.l #1000, d0
+	M_PutInt
+
+	moveq #10, d0
+	M_PutC
+
+	move.l #9001002, d0
+	M_PutInt
+
+	moveq #10, d0
+	M_PutC
+
+	moveq.l #0, d0
+	M_PutInt
+
+	moveq #10, d0
+	M_PutC
+
+	moveq #'A', d0
+	M_PutC
+
+	lea (.string, pc), a0
+	M_PutS
+
+.loop
+	M_GetC
+	tst.w d0
+	beq .loop
+
+	lea (.super, pc), a0
+	M_SuperCall
+
+	M_Clear
+
+	M_GetDateTime
+
+	move.l #999, d3
+
+	M_GetRTTimer
+	move.l d0, -(sp)
+
+.paint
+	M_GetRandomInt
+	and.l #$3f, d0
+	M_SetCursorX
+
+	M_GetRandomInt
+	and.l #$f, d0
+	M_SetCursorY
+
+	moveq.l #'*', d0
+	M_PutC
+
+	subq.l #1, d3
+	bpl.s .paint
+
+	clr.l d0
+	M_SetCursorX
+	moveq.l #16, d0
+	M_SetCursorY
+
+	M_GetRTTimer
+	sub.l (sp)+, d0
+
+	M_PutUInt
+
+	moveq #10, d0
+	M_PutC
+
+	M_GetTerminalHeight
+	clr.l d3
+	move.w d0, d3
+	subq.l #1, d3
+	M_GetTerminalWidth
+	mulu.w d0, d3
+
+.maze
+	M_GetRandomInt
+	move.w #$80, d1
+	btst #1, d0
+	beq.s .prnt
+	move.w #$81, d1
+.prnt
+	move.w d1, d0
+	M_PutC
+
+	subq.l #1, d3
+	bne.s .maze
+
+	move.l #600, d0
+	M_Sleep
+
+	M_Terminate
+
+.string:
+	dc.b 10, "Test string to print.", 10, 10, "Press any key to finish.", 10, 0
+
+	align
+
+.super:
+	nop
+	rts
+next set 0
+;	endr
+
+msg:
+	dc.b "Test:-", $80, $80, $81, $81, "-", 10, 0
+
+	end ;start

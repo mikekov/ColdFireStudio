@@ -1,0 +1,247 @@
+
+	*= $10000
+
+StoreTest	macro
+	sge d0
+	sgt d1
+	shi d2
+	sle d3
+	sls d4
+	slt d5
+	smi d6
+	movem.l d0-d7, (a0)
+	lea 8*4(a0), a0
+	endm
+
+START:				; first instruction of a program
+
+;	move.w #$2700, sr
+	move.l #$10000, sp
+	bsr.s test
+
+	illegal
+
+test
+;	move.l #$10000, sp
+	move.l sp, stack
+
+	bsr clear
+
+	moveq.l #127, d5
+	add.l var1(pc), d5
+	move.l d5, d7
+	bcs.s .skip1
+	addq.l #1, d5
+.skip1
+	lea var2(pc), a1
+	btst.b #7, (a1)+
+	bne.s .skip2
+	addq.l #1, d7
+.skip2
+	lea var3(pc), a5
+	move.l d5, (a5)
+	move.l 0(a5), d3
+	lsl.l #8, d3
+	moveq.l #2, d2
+	lsr.l d2, d3
+	bcc.s .skip3
+	subq.l #2, d3
+.skip3
+	cmp.l d3, d5
+	bhi.s .skip4
+	subq.l #3, d0
+	cmp.l a0, sp
+	ble.s .skip4
+	subq.l #1, d0
+	bls.s .skip4
+	subq.l #1, d0
+.skip4
+	lea var3(pc), a2
+	move.l d0, 4(a2)
+	move.l d0, d6
+	and.l #$aaaaaaaa, d6
+	or.l #$80008000, d6
+	eor.l #$11111111, d6
+	add.l d6, d0
+	bgt.s .skip5
+	subq.l #1, d0
+.skip5
+	cmp.l d0, d6
+	bvs.s .skip6
+	subq.l #1, d0
+.skip6
+	lea 4(a2), a2
+	move.w (a2), d1
+;	extb.l d1
+	ext.l d1
+	swap d1
+	move.w var1, d2
+	ext.l d2
+	eor.l d2, d1
+	move.b var2, d2
+	ext.w d2
+	not.l d2
+	add.l d2, d1
+	neg.l d1
+	bpl.s .skip7
+	not.l d1
+.skip7
+	muls.w d0, d1
+	and.l #$1ffff, d1
+	;divs.w #7, d1
+	tst.b d1
+	bne.s .skip8
+	addq.l #1, d0
+.skip8
+	lea var5, a3
+	bchg.b #1, 4(a3)
+	beq.s .skip9
+	addq.l #1, d0
+.skip9
+	bset.b #2, 8(a3)
+	beq.s .skip10
+	addq.l #1, d0
+.skip10
+	bclr.b #3, 12(a3)
+	beq.s .skip11
+	addq.l #1, d0
+.skip11
+	eor.l #1, d0
+	sne d2
+	smi d3
+	cmp.l d2, d0
+	addx.l d0, d2
+	cmp.l d3, d0
+	subx.l d0, d2
+	move.l d2, d0
+	move.b #$ff, ccr
+	negx.l d0
+
+	lea store(pc), a0
+	movem.l d0-d7/a0-a7, (a0)
+
+	lea var0(pc), a0
+	lea var_end(pc), a1
+
+	moveq.l #0, d4
+.sum
+	move.l (a0)+, d1
+	add.l d1, d4
+	cmp.l a1, a0
+	blo.s .sum
+
+	move.l d4, sum
+
+	lea var1(pc), a0
+	moveq.l #1, d1
+;	add.l 8(a0, d0*4), d4
+;	add.l 16(a0, d0*2), d4
+;	add.l 24(a0, d0*1), d4
+
+	muls.w var1(pc), d4
+	;divs.w var2(pc), d4
+
+	moveq.l #0, d2
+	moveq.l #0, d3
+	addx.l d2, d3
+	move.l #1234567, d0
+	move.l #1234568, d1
+	sub.l d1, d0
+	subx.l d2, d3
+	bcs.s .skip12
+	addq.l #1, d2
+.skip12
+	negx.l d2
+	bne.s .skip13
+	addq.l #1, d2
+
+.skip13
+	bsr clear
+
+	lea st1(pc), a0
+	move.l a0, a1
+
+	moveq.l #10, d7
+	cmp.l #10, d7
+	StoreTest
+
+	cmp.l #11, d7
+	StoreTest
+
+	cmp.l #9, d7
+	StoreTest
+
+	moveq.l #-10, d7
+	cmp.l #-10, d7
+	StoreTest
+
+	cmp.l #-9, d7
+	StoreTest
+
+	cmp.l #-11, d7
+	StoreTest
+
+	moveq.l #0, d4
+	moveq.l #0, d3
+.sum2
+	move.l (a1)+, d1
+	lsl.l d3, d1
+	addq.l #1, d3
+	and.l #$f, d3
+	add.l d1, d4
+	cmp.l a0, a1
+	blo.s .sum2
+
+	; results
+	move.l d4, d0
+	move.l sum, d1
+
+	;divs.w #$1000, d4
+;	divs.w #32760, d4
+
+	move.l stack, sp
+;	nop
+	rts
+
+stack
+	dc.l 0
+
+clear:
+	clr.l d0
+	clr.l d1
+	clr.l d2
+	clr.l d3
+	clr.l d4
+	clr.l d5
+	clr.l d6
+	clr.l d7
+
+	move.l d0, a0
+	move.l d0, a1
+	move.l d0, a2
+	move.l d0, a3
+	move.l d0, a4
+	move.l d0, a5
+	move.l d0, a6
+
+	rts
+
+
+var0:
+var1:	dc.l $12834674
+var2:	dc.w $ffff, 1
+var3:	dc.l 0
+var4:	dc.l 0
+var5:	dc.l 1, 2, 3, 4, 5, 6
+sum:	dc.l 0
+store:	ds.l 16
+st1:	ds.l 8 * 8
+var_end:
+
+
+
+	MOVE.B	#9,D0
+	TRAP	#15		; halt simulator
+
+
+	END	START		; last line of source

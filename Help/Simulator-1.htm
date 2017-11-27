@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Simulator</title>
+
+	<link rel=stylesheet type="text/css" href="styles.css">
+</head>
+
+<body>
+
+<h2>Simulator</h2>
+
+<p>ColdFire simulator can be used to run programs assembled in CF Studio or binaries loaded directly (File/Load Code). To trace program execution following options exist:</p>
+
+<table>
+	<tr class="dark"><td class="plain">Command</td> <td>Description</td></tr>
+	<tr class="plain"><td class="plain">Run</td><td>Starts simulation from current instruction</td></tr>
+	<tr><td class="plain">Restart</td><td>Resets simulator and restarts program</td></tr>
+	<tr><td class="plain">Break</td><td>Stops running simulation</td></tr>
+	<tr><td class="plain">Step Into</td><td>Executes single instruction. Steps into JSR/BSR/TRAP instructions</td></tr>
+	<tr><td class="plain">Step Over</td><td>Executes JSR/BSR/TRAP in one step</td></tr>
+	<tr><td class="plain">Step Out</td><td>Runs till the execution leaves current function</td></tr>
+	<tr><td class="plain">Run to Cursor</td><td>Runs to the line with cursor</td></tr>
+	<tr><td class="plain">Step Into Exception	</td><td>When simulator stops due to exception (like access violation) this command will pass execution to the exception handler</td></tr>
+	<tr><td class="plain">Skip to Cursor</td><td>Moves program counter to the line with cursor</td></tr>
+	<tr><td class="plain">Skip Current Instruction</td><td>Moves program counter to the next instruction</td></tr>
+	<tr><td class="plain">Toggle Breakpoint</td><td>Toggles execution breakpoint in a current line</td></tr>
+</table>
+
+<h2>Simulator Options</h2>
+
+<img src="Images/SimOptions.png" width="446" height="634" alt="Options"/>
+
+<p>Simulator options can be used to change the following settings:</p>
+
+<ul>
+	<li>Configuration of MCU peripherals and board memory.</li>
+	<li>Appearance and size of terminal window.</li>
+	<li>Exceptions that cause simulator to stop.</li>
+</ul>
+
+<p>Configuration files exist in a "Config" folder and can be edited to create new boards. Their format is described in below section.</p>
+
+<p>Terminal window is used for simulated input/output. This functionality is wired to a UART peripheral, as well as monitor routines.</p>
+
+<p>Exception configuration allows you to specify which of the MCU exceptions cause simulator to stop execution. At this point one can examine program state and still elect to run exception handler (Step Into Exception) if it's desirable. Exceptions that do not cause simulator to stop are passed to the exception handler (a regular ColdFire program, typically monitor or OS).</p>
+
+<h2>Simulator Configuration</h2>
+
+<p>Program "Config" folder contains text files with different board configurations. They describe memory layout and available peripherals. Those files can be edited in a text editor. All "ini" files are available in Options dialog. To create new configuration duplicate one of existing files and give it a new name.</p>
+
+<p>Here's configuration file structure:</p>
+
+<h3>Memory Section</h3>
+
+<p>Memory section describes all memory banks (up to 8), their location in 32-bit address space, and their size. Simulator supports read-write memory (denoted as RAM or SRAM), and read-only memory (Flash or ROM). Read-only memory can be used to load program into, but write attempts by MCU will result in access violation.</p>
+<p>Dummy bank (Null) can also be used to reserve address space. It will read as zeros, while writes are ignored. It can be used to simulate area that can be read by a program.</p>
+
+<pre>
+Memory
+{
+	RAM
+	{
+		base 0x00000000
+		size 0x00200000
+	}
+
+	Flash
+	{
+		base 0xFFE00000
+		size 0x00040000
+	}
+
+	Dummy
+	{
+		base 0x00fa0000		; cartridge
+		size 0x00010000
+	}
+}
+</pre>
+
+<h3>MCU Registers</h3>
+
+<p>Initial values for Vector Base Register and Module Base Address Register can be specified as follows:</p>
+
+<pre>
+VBR  0x00000000
+MBAR 0x10000000
+</pre>
+
+<p>Those values will be used when simulator is reset. They are MCU-specific in real hardware.</p>
+
+<p>MCU's instruction architecture can also be specified in configuration file. Note that it could be overridden in assembler options and Load Code dialog. Available choices include: ISA_A, ISA_B, and ISA_C.</p>
+<pre>
+ISA	ISA_C
+</pre>
+
+<h3>MCU Peripherals</h3>
+
+<p>ColdFire MCUs contain several peripherals. Very few of them are simulated. Available choices are: uart (Universal Asynchronous Receiver/Transmitter), timer, icm (Interrupt Control Module), and dummy (null device). Each type needs to request specific <code>version</code> (like "5206"). Currently that's the only version implemented (apart form icm, which is "simple").</p>
+<p><code>io_offset</code> is an offset from the MBAR that specifies location of peripheral's registers in I/O area.</p>
+<p><code>interrupt_source</code> is a unique peripheral identifier used by interrupt controller to distinquish different devices. ICM will decide which interrupt vector to use based upon this number. This is part of a simulated interrupt acknowledge cycle where device provides interrupt vector.</p>
+<p><code>trace 1</code> can be used to turn on reporting of read and write accesses to a device for debugging purposes.</p>
+<pre>
+Peripherals
+{
+	timer
+	{
+		version "5206"
+		io_offset 0x100
+		interrupt_source 9
+	}
+
+	timer
+	{
+		version "5206"
+		io_offset 0x120
+		interrupt_source 10
+	}
+
+	uart
+	{
+		version "5206"
+		io_offset 0x140
+		interrupt_source 12
+	}
+
+	uart
+	{
+		version "5206"
+		io_offset 0x180
+		interrupt_source 13
+	}
+
+	icm
+	{
+		version "simple"
+		io_offset 0x14
+	}
+
+	dummy	; dummy device
+	{
+		io_offset 0x500
+		io_area_size 0x100
+		trace 1
+	}
+}
+</pre>
+
+<h3>Changes</h3>
+
+<p>Note that any changes to the configuration file as well as selecting different "ini" files in CF Studio require that you quit CF Studio and start it again.</p>
+
+</body>
+</html>

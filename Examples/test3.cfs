@@ -1,0 +1,38 @@
+
+	*= $1000
+
+start:
+	move.l #-1000, d0
+	move.l #$7ffffff0, d1
+	cmp.l d0, d1
+	cmp.l d1, d0
+
+	and.l #~1, d1
+
+	moveq.l #123, d1
+	moveq.l #43, d6
+	moveq.l #10, d4
+.loop
+	muls.w d1, d6
+	asl.l #2, d6
+
+	bcc .skip
+	subq.l #7, d6
+
+.skip
+	addq.l #5, d1
+
+	cmp.l d1, d6
+	bge .s1
+	or.l #1, d1
+.s1
+	cmp.l d1, d6
+	blt .s2
+	and.l #~1, d1
+.s2
+	subq #1, d4
+	bne .loop
+
+	nop
+
+	end start

@@ -1,0 +1,62 @@
+; Title: print int
+	include "Monitor.cfs"
+
+	*= $10000
+
+Start:
+	moveq.l #-1, d0
+
+	move.l d3, -(sp)
+
+	clr.b d3
+	lea .nums(pc), a1
+.next_digit:
+	moveq.l #-1, d2
+	move.l (a1)+, d1
+	beq.s .exit
+.next:
+	addq.l #1, d2
+	cmp.l d1, d0
+	blo.s .digit
+	sub.l d1, d0
+	bra.s .next
+
+.digit
+	tst.b d3
+	bne.s .output
+
+	tst.l d2
+	beq.s .next_digit
+
+.output
+	add.l #'0', d2
+	; output d2
+	;
+	st d3
+	bra.s .next_digit
+
+.exit:
+	tst.b d3
+	bne.s .ret
+
+	; output zero
+	moveq.l #'0', d0
+	;
+
+.ret
+	move.l (sp)+, d3
+	rts
+
+.nums:
+.num	set 1000000000
+	repeat 10
+	dc.l .num
+.num	set .num / 10
+	endr
+	dc.l 0
+
+	; terminate program
+	clr.w -(sp)
+	trap #15
+
+	end Start

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="Window Styles" value="0x800027">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ColdFire Studio">
+		<param name="Local" value="Intro.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="First Steps">
+		<param name="Local" value="FirstSteps.htm">
+		</OBJECT>
+
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Macro Assembler">
+		<param name="Local" value="Assembler.htm">
+		</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Syntax">
+				<param name="Local" value="Assembler-1.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Directives">
+				<param name="Local" value="Assembler-2.htm">
+				</OBJECT>
+		</UL>
+
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Simulator">
+		<param name="Local" value="Simulator.htm">
+		</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Simulator Options and Configuration">
+				<param name="Local" value="Simulator-1.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Running Programs">
+				<param name="Local" value="Simulator-2.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Monitor">
+				<param name="Local" value="Simulator-3.htm">
+				</OBJECT>
+		</UL>
+
+</UL>
+</BODY></HTML>

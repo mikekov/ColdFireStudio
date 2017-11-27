@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Assembler Directives</title>
+	<link rel=stylesheet type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Assembler Directives</h2>
+
+<p>This is complete list of directives supported by macro assembler. Directives that allow different sizes denoted by .b/w/l are byte, word, or long word in size.</p>
+
+<ol>
+	<li class="b">*= address<p>Establish origin of generated code. This directive is required at the beginning of source code to set starting memory location for subsequent instructions. It's necessary even in case of fully relocatable code.</p></li>
+
+	<li class="b">ALIGN [number]<p>Align origin such that it is divisible by given number (by 2 if no number is specified). That is program counter modulo 'number' is zero. The content skipped by ALIGN is left undefined.<br>Note: This directive is useful to ensure that ColdFire instructions are placed on word boundaries following DC.B "string" declarations.</p></li>
+
+	<li class="b">DC.b/w/l data *[, data]<p>Declare data in bytes, words, or long words. Data is generated at current origin location.<br>Note: Strings can be defined with DC.B directive.</p></li>
+
+	<li class="b">DCB.b/w/l size, fill<p>Declare block of values. First parameter determines count of values to generate. Second parameter determines value to output.</p></li>
+
+	<li class="b">DS.b.w.l size<p>Define space for data, where 'size' is count of bytes/word, or long words depending on directive size.</p></li>
+
+	<li class="b">IF expression, ELSE, ENDIF<p>Conditional assembly. Instructions following IF statement will be assembled only if expression evaluates to non-zero value. Conditional assembly directive must be matched by a closing ENDIF. ELSE directive can be used inside IF/ENDIF to include clause assembled when expression evaluates to 0.</p></li>
+
+	<li class="b">END [start]<p>Directive ending assembly. Optional expression sets program's start used by a simulator.</p></li>
+
+	<li class="b">label MACRO [params], ENDM, EXITM<p>Macro definition directive.</p></li>
+
+	<li class="b">REPEAT count, ENDR<p>Repeat instructions placed between REPEAT/ENDR 'count' times.</p></li>
+
+	<li class="b">ERROR message<p>User defined error to stop assembly. Typically used in conditional branch.</p></li>
+
+	<li class="b">INCLUDE file-name<p>Include source file to assemble. File to include is searched for in the same folder as the currently assembled source code.</p></li>
+
+	<li class="b">ORG address<p>Same as *= directive.</p></li>
+
+	<li class="b">label SET expression<p>Define 'label' and assign it value of 'expression'. This 'label' can be redefined with another SET statement.</p></li>
+
+	<li class="b">label = expression<p>Define 'label' and assign it value of 'expression'. This label cannot be redefined.</p></li>
+
+	<li class="b">label = register list<p>Define 'label' and assign it list of registers. Useful in conjunction with MOVEM instruction.</p></li>
+
+	<li class="b">*<p>Current origin value.</p></li>
+</ol>
+
+<h2>Macro Definitions</h2>
+
+<p>MACRO is a directive opening macro definition.</p>
+<p>Syntax:</p>
+<pre>label[:] MACRO [param *[, param] [, ...]] | [...]</pre>
+
+<p>Example:</p>
+
+<pre>
+PushA6 MACRO      ; parameterless macro
+Print  MACRO ...  ; macro accepting any number of parameters
+Put    MACRO chr  ; macro accepting exactly one parameter
+</pre>
+
+<p>MACRO directive defines block of code (macro definitions). Label placed before MACRO becomes macro definition name and is placed in macro name dictionary (which is separate from label names dictionary).
+After MACRO directive one can place macro parameters and/or ellipsis (...). Parameter name can then be used in macro definition block. Defined parameters will be required when macro is used later in source code. To pass any number of parameters (including none) one can define macro with ellipsis (...). If there are no parameters defined macro can be invoked without parameters only.</p>
+
+<p>To use parameters inside macro definition one can use their names or consecutive numbers (starting from 1) preceeded by '%' character. Parameter number zero (%0) has special meaning&mdash;it contains number of actual parameters macro was invoked with. Instead of numbers numeric expression can be used if they are enclosed in square brackets (for example %[.cnt+1]).</p>
+
+<p>In macro invocation actual parameters are placed after macro name. Parameter expressions are separated by commas. All those expression are assembly time expressions. They get interpreted and calculated and result values are passed to macro definition. Strings and numerical values, as well as register lists can be used. Note that macro invocation can specify instruction size. It will be available inside macro definition using %size parameter.</p>
+
+<p>All labels starting with dot (.) are local to macro definition block and are neither accessible nor visible from the outside code invoking macro definition. All the other labels are global. Macro definition code can use local labels (from the place it was invoked), global labels, as well as it's own local labels.</p>
+
+<p>Macro definition parameters could be referenced with '$' suffix. If given parameter was passed as a string it is still accessible as such using dollar sign. Accessing it without '$' suffix returns string length. Parameter 0$ has special meaning: it's a macro name.</p>
+
+<p>Macro examples:</p>
+
+<pre>
+	; push list of registers onto the stack
+PushRegs MACRO regs
+	; calculate how many registers to push
+.size	= BITCOUNT(regs)
+	IF .size > 2
+	  lea (-.size*4, sp), sp
+	ELSE
+	  subq.l #.size*4, sp
+	ENDIF
+	movem.l regs, (sp)
+	ENDM
+
+	; using macro size
+Mv	MACRO reg
+	move.%size #$1234, reg
+	ENDM
+
+	; calling Mv:
+	Mv.l d0
+</pre>
+
+</body>
+</html>

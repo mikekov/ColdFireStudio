@@ -1,0 +1,2 @@
+- cursor click on a half byte, and start editing: cursor moves, but editing nibble is stuck
+-

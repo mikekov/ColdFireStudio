@@ -1,0 +1,20 @@
+; Title: 
+
+	*= $10000
+
+Start:
+	moveq #10, d7
+	cmp.l #9, d7
+	nop
+	nop
+	cmp.l #11, d7
+	nop
+	nop
+	cmp.l #10, d7
+	nop
+
+	; terminate program
+	clr.w -(sp)
+	trap #15
+
+	end Start

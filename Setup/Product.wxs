@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Product names -->
+<?if $(var.Platform) = x64 ?>
+	<?define ProductNamePlatform = "ColdFire Studio (64-bit)" ?>
+	<?define Win64 = "yes" ?>
+	<?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+	<?define VC_CRT_MSM = "Microsoft_VC110_CRT_x64.msm" ?>
+	<?define VC_MFC_MSM = "Microsoft_VC110_MFC_x64.msm" ?>
+<?else ?>
+	<?define ProductNamePlatform = "ColdFire Studio (x86)" ?>
+	<?define Win64 = "no" ?>
+	<?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+	<?define VC_CRT_MSM = "Microsoft_VC110_CRT_x86.msm" ?>
+	<?define VC_MFC_MSM = "Microsoft_VC110_MFC_x86.msm" ?>
+<?endif ?>
+<?define ProductNameFull = "ColdFire Macro Assembler and Simulator" ?>
+<?define ProductName = "ColdFire Studio" ?>
+<?define ProductVersion = "0.2.0" ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="$(var.ProductNamePlatform) Version $(var.ProductVersion)" Language="1033" Version="$(var.ProductVersion).0" Manufacturer="Mike Kowalski" UpgradeCode="7ac6f34d-298f-4fd8-960a-9611bd1ca57c">
+		<Package InstallerVersion="405" Compressed="yes" InstallScope="perMachine" Description="$(var.ProductNameFull)" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed." />
+		<Media Id="1" EmbedCab="yes" Cabinet="setup.cab" CompressionLevel="high"></Media>
+<!--		<MediaTemplate /> -->
+
+		<Feature Id="ProductFeature" Title="Setup" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentRef Id="ApplicationShortcut" />
+			<ComponentRef Id="HelpShortcut" />
+			<ComponentGroupRef Id="ExampleFiles" />
+		</Feature>
+
+		<Feature Id="VCCtrRedist" Title="Visual C++ 11.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+			<MergeRef Id="VCCtrRedist"/>
+		</Feature>
+
+		<Feature Id="VCMfcRedist" Title="MFC Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+			<MergeRef Id="VCMfcRedist"/>
+		</Feature>
+
+		<UI>
+			<Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">
+				WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed
+			</Publish>
+		</UI>
+		<Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch $(var.ProductName)" />
+		<Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1"/>
+		<Property Id="WixShellExecTarget" Value="[#StudioEXE]" />
+		<CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+		<!-- Add application to Add/Remove Programs -->
+		<Icon Id="icon.ico" SourceFile="..\Studio\res\ColdFire.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Merge Id="VCCtrRedist" SourceFile="Redist\$(var.VC_CRT_MSM)" DiskId="1" Language="0"/>
+			<Merge Id="VCMfcRedist" SourceFile="Redist\$(var.VC_MFC_MSM)" DiskId="1" Language="0"/>
+			<Directory Id="$(var.PlatformProgramFilesFolder)">
+				<Directory Id="APPLICATIONFOLDER" Name="$(var.ProductName)">
+					<Directory Id="CONFIG" Name="Config" />
+					<Directory Id="TEMPLATES" Name="Templates" />
+					<Directory Id="MONITOR" Name="Monitor" />
+					<Directory Id="EXAMPLES" Name="Examples" />
+				</Directory>
+			</Directory>
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
+				</Directory>
+			</Directory>
+		</Directory>
+		<Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONFOLDER" />
+		<WixVariable Id="WixUILicenseRtf" Value="..\License.rtf" />
+		<UIRef Id="WixUI_InstallDir" />
+	</Fragment>
+
+	<Fragment>
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcut" Guid="6D54DE8C-89B3-430A-8F2E-CFC563A382F6">
+				<Shortcut Id="ApplicationStartMenuShortcut"
+						  Name="$(var.ProductName)"
+						  Description="$(var.ProductNameFull)"
+						  Target="[APPLICATIONFOLDER]Studio.exe"
+						  WorkingDirectory="APPLICATIONFOLDER"/>
+				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="Software\Microsoft\CFStudio" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</DirectoryRef>
+
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="HelpShortcut" Guid="A5FE8EF6-3FFD-4794-84ED-2EF42F86F8BC">
+				<Shortcut Id="ApplicationStartMenuHelpShortcut"
+						  Name="$(var.ProductName) Help"
+						  Description="Help for $(var.ProductNameFull)"
+						  Target="[APPLICATIONFOLDER]Studio.chm"
+						  WorkingDirectory="APPLICATIONFOLDER"/>
+				<RemoveFolder Id="HelpApplicationProgramsFolder" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="Software\Microsoft\CFStudio" Name="installed_help" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</DirectoryRef>
+
+		<ComponentGroup Id="ProductComponents">
+			<Component Id="ProductComponent" Guid="3F3F623E-F6DE-4929-891F-CEAF74CF6C22" Directory="APPLICATIONFOLDER">
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+				<File Id='StudioEXE' Source='$(var.Studio.TargetPath)' KeyPath='yes'>
+<!--
+					<Shortcut Id="startmenuStudio" Directory="ProgramMenuDir" Name="Studio 1.0"
+						WorkingDirectory='INSTALLDIR' Icon="Studio.exe" IconIndex="0" Advertise="yes" />
+					<Shortcut Id="desktopStudio" Directory="DesktopFolder" Name="Studio 1.0"
+						WorkingDirectory='INSTALLDIR' Icon="Studio.exe" IconIndex="0" Advertise="yes" /> -->
+				</File>
+			</Component>
+			<Component Id="ProductComponent2" Guid="bd78af24-37a9-455d-9a1d-4a2e827bb7dc" Directory="APPLICATIONFOLDER">
+				<File Id='ColdFireDLL' Source='$(var.ColdFire.TargetPath)' KeyPath='yes'/>
+			</Component>
+			<Component Id="ProductComponent3" Guid="ae887de9-b5f0-4889-b384-6c060758007e" Directory="APPLICATIONFOLDER">
+				<File Id='ResDLL' Source='$(var.ResDll.TargetPath)'></File>
+			</Component>
+			<Component Id="Help" Guid="5c525adf-e92b-4fde-aa74-90ee15e9cda5" Directory="APPLICATIONFOLDER">
+				<File Id='Help' Source='..\Studio.chm'></File>
+			</Component>
+
+			<Component Id="Config1" Guid="3198eb0c-2bf3-4b6f-a6fc-25b26883c641" Directory="CONFIG">
+				<File Source="..\Config\config.ini" KeyPath="yes"/>
+			</Component>
+			<Component Id="Config2" Guid="B30DE05B-940E-48EA-B6DB-0D7842289665" Directory="CONFIG">
+				<File Source="..\Config\5206 board.ini" KeyPath="yes"/>
+			</Component>
+
+			<Component Id="Templates" Guid="ec60750b-1c39-46a9-a3c8-33aa0abb0b9e" Directory="TEMPLATES">
+				<File Id="source_template" Source="..\Templates\Template.cfs" KeyPath="yes"/>
+			</Component>
+
+			<Component Id="Monitor1" Guid="25e3b012-389b-42f9-898c-e6f89049edf9" Directory="MONITOR">
+				<File Id="monitor_src" Source="..\Monitor\CFMonitor.cfs" KeyPath="yes"/>
+			</Component>
+			<Component Id="Monitor2" Guid="a272b507-5b27-4272-a5b1-a9e12fc6492d" Directory="MONITOR">
+				<File Id="monitor_prg" Source="..\Monitor\monitor.cfp" KeyPath="yes"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="ExampleFiles" Directory="EXAMPLES">
+			<Component Guid="30C6D575-9DEC-4154-B282-25C2E8232FC2">
+				<File Id="example_1" Source="..\Examples\MonitorTest.cfs" KeyPath="yes"/>
+			</Component>
+			<Component Guid="42D794A3-83FE-4CDE-991B-467570A2C575">
+				<File Id="example_2" Source="..\Examples\Monitor.cfs" KeyPath="yes"/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

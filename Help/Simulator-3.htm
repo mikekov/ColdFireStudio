@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Simulator</title>
+
+	<link rel=stylesheet type="text/css" href="styles.css">
+</head>
+
+<body>
+
+<h2>Monitor</h2>
+
+<p>Monitor is a regular ColdFire application that runs with supervisor priviledges and provides services to programs written in CF Studio. Programs assembled and run in CF Studio can call monitor routines.</p>
+
+<p>All monitor routines are invoked through the TRAP #15 instruction with routine number pushed on the 
+stack and parameters in the data/address registers.</p>
+
+<p>Monitor is automatically loaded when CF Studio starts. It resides in "Monitor/monitor.cfp" file (sources are available in "Monitor/CFMonitor.cfs). It can be modified in CF Studio too.</p>
+
+<h3>Monitor Routines</h3>
+
+<p>This is a list of all monitor functions. They provide access to a simple terminal window and some general-purpose functionality, like real-time timer, date/time, random number generator, etc.</p>
+
+<p>Monitor preserves registers D3-D7/A3-A7 during function calls. Registers D0-D2/A0-A2 may contain input parameters. Their content will NOT in general be preserved. Registers D0/D1 may contain return values, if any.</p>
+
+<table>
+	<tr class="dark"><td class="plain">Routine</td><td>Number</td><td>Parameters</td><td>Return</td><td>Description</td> </tr>
+
+	<tr><td class="plain">Terminate</td><td>0</td><td>None</td><td>None</td><td>Terminates program execution.</td></tr>
+	<tr><td class="plain">Clear</td><td>1</td><td>None</td><td>None</td><td>Clears terminal window.</td></tr>
+	<tr><td class="plain">PutC</td><td>2</td><td>Char in D0.w</td><td>None</td><td>Outputs single character in terminal window.</td></tr>
+	<tr><td class="plain">GetC</td><td>3</td><td>None</td><td>Char in D0.w</td><td>Reads single character from terminal; returns null if none is available. Note that terminal window has to be active to accept keyboard input.</td></tr>
+	<tr><td class="plain">PutS</td><td>4</td><td>String address in A0</td><td>None</td><td>Outputs null-terminated string in terminal window. Each character is expected to be 1 byte in size.</td></tr>
+	<tr><td class="plain">GetS</td><td>5</td><td>Buffer in A0, size in D0</td><td>None</td><td>Reads line of up to D0 characters into provided buffer. Returns null-terminated string. Blocking call.</td></tr>
+	<tr><td class="plain">PutInt</td><td>6</td><td>Number in D0</td><td>None</td><td>Outputs signed integer number in terminal window.</td></tr>
+	<tr><td class="plain">PutUInt</td><td>7</td><td>Number in D0</td><td>None</td><td>Outputs unsigned integer number in terminal window.</td></tr>
+	<tr><td class="plain">PutHex</td><td>8</td><td>Number in D0, size in D1</td><td>None</td><td>Outputs unsigned hexadecimal number in terminal window. D1 denotes size of number as byte (1), word (2), or long word (4).</td></tr>
+
+	<tr><td class="plain">GetCursorX</td><td>9</td><td>None</td><td>Number in D0.w</td><td>Reads cursor X location in terminal window.</td></tr>
+	<tr><td class="plain">GetCursorY</td><td>10</td><td>None</td><td>Number in D0.w</td><td>Reads cursor Y location in terminal window.</td></tr>
+	<tr><td class="plain">SetCursorX</td><td>11</td><td>Number in D0.w</td><td>None</td><td>Sets cursor X location in terminal window.</td></tr>
+	<tr><td class="plain">SetCursorY</td><td>12</td><td>Number in D0.w</td><td>None</td><td>Sets cursor Y location in terminal window.</td></tr>
+	<tr><td class="plain">GetTerminalWidth</td><td>13</td><td>None</td><td>Number in D0.w</td><td>Reads terminal window width (in number of characters).</td></tr>
+	<tr><td class="plain">GetTerminalHeight</td><td>14</td><td>None</td><td>Number in D0.w</td><td>Reads terminal window height (in number of characters).</td></tr>
+	<tr><td class="plain">SetTerminalWidth</td><td>15</td><td>Number in D0.w</td><td>None</td><td>Sets terminal window width (in number of characters).</td></tr>
+	<tr><td class="plain">SetTerminalHeight</td><td>16</td><td>Number in D0.w</td><td>None</td><td>Sets terminal window height (in number of characters).</td></tr>
+
+	<tr><td class="plain">GetRTTimer</td><td>17</td><td>None</td><td>Number in D0</td><td>Reads real-time 1 kHz frequency timer with resolution equal or better than 16 ms.</td></tr>
+	<tr><td class="plain">GetDateTime</td><td>18</td><td>None</td><td>Number in D0</td><td>Reads date and time encoded as a number of seconds since January 1, 1970 divided by two.</td></tr>
+	<tr><td class="plain">GetRandomNumber</td><td>19</td><td>None</td><td>Number in D0.w</td><td>Returns pseudo-random 15-bit number in lower 16 bits of D0.</td></tr>
+	<tr><td class="plain">RunAsSuper</td><td>20</td><td>Program address in A0</td><td>Program specific</td><td>Runs user routine with supervisor priviledges.</td></tr>
+	<tr><td class="plain">Sleep</td><td>21</td><td>Number in D0</td><td>None</td><td>Sleeps for D0 milliseconds. Blocking call.</td></tr>
+</table>
+
+<h3>Examples</h3>
+
+<p>All routine numbers must be pushed onto the stack as words, and removed afterward.</p>
+
+<pre>
+	; clear terminal window
+	MOVE.W #1, -(SP)
+	TRAP #15
+	ADDQ.L #2, SP
+</pre>
+
+<p>Monitor calls can be simplified with macros. Include "Monitor.cfs" file to be able to write:</p>
+
+<pre>
+	MOVEQ #'A', d0
+	M_PutC
+</pre>
+
+<p>In this case routine number is pushed and removed as needed by a macro.</p>
+
+<p>Blocking execution until key is pressed in terminal window:</p>
+
+<pre>
+.loop
+	M_GetC
+	TST.W d0
+	BEQ .loop
+</pre>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+	; start code location
+	*= $10000
+
+Start:
+	; clear terminal window
+	move.w #1, -(sp)
+	trap #15
+	addq.l #2, sp
+
+	; print message
+	lea (.msg, pc), a0
+	move.w #4, -(s0p)
+	trap #15
+	addq.l #2, sp
+
+	; terminate
+	clr.w -(sp)
+	trap #15
+
+.msg:
+	dc.b "Hello World.", 10, 0
+	align
+
+	; execute simulation from 'Start' label
+	end Start

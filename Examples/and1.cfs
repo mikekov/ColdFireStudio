@@ -1,0 +1,10 @@
+	*= $10000
+
+	and #$f, d0
+
+	btst #5, d0
+	bchg d0, d7
+	btst #5, (a0)
+	bchg d0, (a2)
+
+	mov3q #2, d0

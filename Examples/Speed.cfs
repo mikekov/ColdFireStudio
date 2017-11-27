@@ -1,0 +1,28 @@
+	include "Monitor.cfs"
+
+	*= $1000
+
+	nop
+	M_GetRTTimer
+	move.l d0, d7
+	move.l #10000000, d0
+	clr.l d1
+	clr.l d2
+.loop
+	addq.l #5, d1
+	addq.l #3, d2
+	move.l d1, d3
+	mulu.l d2, d3
+	asl.l #2, d3
+	bcc.s .skip
+	or.l #1, d3
+.skip
+	subq.l #1, d0
+	bne.s .loop
+
+	M_GetRTTimer
+	sub.l d7, d0
+
+	nop
+
+	M_Terminate

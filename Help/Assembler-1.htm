@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Assembler</title>
+	<link rel=stylesheet type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Assembler Syntax</h2>
+
+<p>For a complete reference of ColdFire opcodes and addressing modes consult <a href="http://www.freescale.com/files/dsp/doc/ref_manual/CFPRM.pdf">ColdFire Family Programmer's Reference Manual</a> (CFRM).</p>
+
+<h3>Instruction Opcodes</h3>
+
+<p>Assembler supports instruction set architecture A, B, and C. Use program options to select desired ISA.</p>
+
+<h3>Registers</h3>
+
+<p>Registers recognized by assembler:</p>
+
+<ul>
+	<li>Data registers D0 to D7</li>
+	<li>Address registers A0 to A7</li>
+	<li>SP as a synonym of A7</li>
+	<li>User stack pointer USP</li>
+	<li>Program counter PC</li>
+	<li>Status register SR</li>
+	<li>Condition codes register CCR</li>
+	<li>Special registers: VBR, MBAR, CACR, ASID, ACR0, ACR1, ACR2, ACR3, MMUBAR, ROMBAR0, ROMBAR1, RAMBAR0, RAMBAR1</li>
+</ul>
+
+<h3>Addressing Modes</h3>
+
+<p>For a complete list of supported addressing modes refer to <a href="http://www.freescale.com/files/dsp/doc/ref_manual/CFPRM.pdf">CFRM</a>. Here possible alternative forms and changes to the syntax described in CFRM are listed.</p>
+
+<ul>
+	<li>(disp, An) - Address Register Indirect with 16-Bit Displacement Mode<p>Alternative syntax is supported where displacement is given outside the parentheses: disp(An).</p></li>
+
+	<li>(disp, An, Xi*Scale) Address Register Indirect with Scaled Index and 8-Bit Displacement 
+Mode<p>Scale is given by a number 1, 2, or 4. If omitted scale of 1 is used.<br>Alternative syntax is supported where displacement is given outside the parentheses: disp(An, Xi*Scale).<br>Note: Size of indexing register cannot be specified and is assumed to be long.</p></li>
+
+	<li>(disp, PC) - Program Counter Indirect with 16-Bit Displacement Mode<p>Alternative syntax: disp(PC).</p></li>
+
+	<li>(disp, PC, Xi*Scale) - Program Counter Indirect with Scaled Index and 8-Bit Displacement Mode<p>Scale is given by a number 1, 2, or 4. If omitted scale of 1 is used.<br>Alternative syntax: disp(PC, Xi*Scale).<br>Note: Size of indexing register cannot be specified and is assumed to be long.</p></li>
+</ul>
+
+<h3>Numbers</h3>
+
+<p>Assembler interprets integer numbers only in one of the following systems: decimal, hexadecimal, and binary. Decimal numbers consists of combination of digits 0 to 9. Hexadecimal numbers must start with dollar sign '$' followed by hexadecimal digits. Binary numbers start with '@' sign followed by 0s or 1s. All numbers must be less than 2^32.</p>
+<p>Character enclosed in single prime symbols, e.g. 'x', evaluates to a number with ASCII value of an enclosed character; that is it is not a string.</p>
+
+<h3>Strings</h3>
+
+<p>Strings form a type distinct form numbers. String literals are constructed by enclosing characters in quote marks '"' (double prime symbol). No special string combinations are supported, so "\n" for instance is not a new line character, but two separate characters.</p>
+<p>Strings can be passed to macro definitions or used in DC.B directive. Note that character enclosed in prime symbols, such as 'A', is a number, not a string.</p>
+
+<p>Example:</p>
+<pre>
+message   DC.B "Message", 10, 0  ; 10 is a new line char
+in_quotes DC.B '"', "Message", '"', 10, 0
+</pre>
+
+<h3>Labels</h3>
+
+<p>Label identifiers may consist of letters, digits, underscore characters, and leading dot or question mark. They cannot start with a digit. Note that directive names and instruction mnemonics are reserved and cannot be used as labels.</p>
+<p>Labels are declared by placing them in the first position in line. Labels have global range unless they start with dot '.'. Labels starting with '.' have local scope. Each global label declaration opens new local scope.</p>
+<p>To assign particular value to a label follow it by an equal '=' sign and expression.</p>
+
+<p>Example:</p>
+<pre>
+MAX = 1000
+.loop
+	SUBQ.L #1, d0
+	BEQ .loop
+	RTS
+text: dc.b "Hello World", 0
+</pre>
+
+<h3>Register Lists</h3>
+
+<p>Register lists are formed by specifying '/' separated data and/or address registers. Ranges of registers can be formed too using minus sign '-'. Register list is expected by MOVEM instruction, but it can also be assigned to a label or passed to a macro.</p>
+
+<p>Example:</p>
+<pre>
+list = D2-D5/A2/A5
+	MOVEM.L D3/A3, (SP)
+</pre>
+
+<h3>Operators</h3>
+
+<p>Assembler supports arithmetical and logical operators. They are listed below ordered by priority, with highest priority operators at the top.</p>
+
+<ol>
+	<li class="b">[ ]<p>Grouping expressions. Square brackets are used to avoid confusion with parentheses which form different addressing modes. Use them to change order of calculations.</p></li>
+	<li class="b">- ~ ! &lt; &gt; <p>Unary operators: - arithmetical negation, ! logical not, ~ bitwise not, &lt; low word, &gt; high word.</p></li>
+	<li class="b">* / %<p>Multiplication, division, and modulo operations, respectively.</p></li>
+	<li class="b">&lt;&lt; &gt;&gt;<p>Arithmetical bit shift left and right.</p></li>
+	<li class="b">+ -<p>Addition and subtraction.</p></li>
+	<li class="b">&amp; | ^<p>Bitwise and, or, exclusive or, respectively.</p></li>
+	<li class="b">&gt; &lt; &gt;= &lt;= == != <p>Comparison operators.</p></li>
+	<li class="b">&amp;&amp;<p>Boolean and.</p></li>
+	<li class="b">||<p>Boolean or.</p></li>
+</ol>
+
+<h3>Expressions</h3>
+
+<p>Numbers can be combined using operators to form expressions. All instructions expecting numbers also accept expressions evaluating to numbers.</p>
+
+<h3>Predefined Functions</h3>
+
+<ul>
+	<li class="b">BITCOUNT(expr)<p>Function BITCOUNT returns number of bits set in 'expr'.</p></li>
+	<li class="b">DEF(label)<p>Function DEF returns 1 (true) if 'label' has been defined and 0 (false) otherwise.</p></li>
+	<li class="b">REF(label)<p>Function REF returns 1 (true) if 'label' has been referenced or is defined, and 0 (false) otherwise.</p></li>
+	<li class="b">PASSDEF(label)<p>Function PASSDEF returns 1 (true) if 'label' has been defined in current assembly pass. It can be used to conditionally define labels.</p></li>
+	<li class="b">STRLEN(label)<p>Function STRLEN returns length of the string argument.</p></li>
+</ul>
+
+<p>Examples:</p>
+<pre>
+       IF !PASSDEF(errno)  ; 'errno' not defined yet?
+errno: DC.L 0              ; conditional definition is not going to cause
+       ENDIF               ; phase error thanks to PASSDEF() function
+
+       IF REF(msg) && !PASSDEF(msg)  ; if 'msg' was referenced, but not defined
+msg:   DC.B "Message...", 0          ; then define 'msg' now
+       ENDIF
+</pre>
+
+<h3>Predefined Labels</h3>
+
+<ul>
+	<li class="b">ORG<p>Current origin value.</p></li>
+	<li class="b">IO_AREA<p>Start of simulator I/O area.</p></li>
+	<li class="b">__VERSION<p>Assembler version.</p></li>
+</ul>
+
+</body>
+</html>

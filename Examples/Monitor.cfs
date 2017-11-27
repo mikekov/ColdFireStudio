@@ -1,0 +1,113 @@
+; include file for monitor routines
+
+_M_TrapVect	= 15
+
+; terminate user program
+M_Terminate	macro
+	clr.w -(sp)
+	trap #_M_TrapVect
+	endm
+
+_M_Call	macro number
+	move.w #number, -(sp)
+	trap #_M_TrapVect
+	addq.l #2, sp
+	endm
+
+; clear terminal window
+M_Clear macro
+	_M_Call 1
+	endm
+
+; output single character from D0
+M_PutC macro
+	_M_Call 2
+	endm
+
+; read single character (nul if nothing is ready) into D0
+M_GetC macro
+	_M_Call 3
+	endm
+
+; print nul-terminated string from (A0)
+M_PutS macro
+	_M_Call 4
+	endm
+
+; read nul-terminated string of up to D0 characters into (A0)
+M_GetS macro
+	_M_Call 5
+	endm
+
+; print integer number from D0
+M_PutInt macro
+	_M_Call 6
+	endm
+
+; print unsigned integer number from D0
+M_PutUInt macro
+	_M_Call 7
+	endm
+
+; print hexadecimal number from D0; D1 bytes of precision (typically 1, 2, or 4)
+M_PutHex macro
+	_M_Call 8
+	endm
+
+M_GetCursorX macro
+	_M_Call 9
+	endm
+
+M_GetCursorY macro
+	_M_Call 10
+	endm
+
+M_SetCursorX macro
+	_M_Call 11
+	endm
+
+M_SetCursorY macro
+	_M_Call 12
+	endm
+
+M_GetTerminalWidth macro
+	_M_Call 13
+	endm
+
+M_GetTerminalHeight macro
+	_M_Call 14
+	endm
+
+M_SetTerminalWidth macro
+	_M_Call 15
+	endm
+
+M_SetTerminalHeight macro
+	_M_Call 16
+	endm
+
+; get real-time timer value in milliseconds with ca. 15 ms resolution
+M_GetRTTimer macro
+	_M_Call 17
+	endm
+
+; return date/time in seconds/2 from 1970-01-01
+M_GetDateTime macro
+	_M_Call 18
+	endm
+
+; gat random number
+M_GetRandomInt macro
+	_M_Call 19
+	endm
+
+; execute (A0) routine in supervisor mode
+; pass any params into your routine in remaining registers
+M_SuperCall macro
+	_M_Call 20
+	endm
+
+; sleep for D0 milliseconds
+M_Sleep macro
+	_M_Call 21
+	endm

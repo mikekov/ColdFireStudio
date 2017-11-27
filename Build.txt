@@ -1,0 +1,29 @@
+ColdFire Studio requires free MS Visual Studio 2017 Community Edition to build.
+Source code has been successfully built on Windows 10.
+
+External dependencies:
+- C++ std library (included with VS)
+- Windows SDK (cames with VS installation?)
+- boost libraries 1.65.1 (www.boost.org)
+- WiX Toolkit (wixtoolset.org)
+- Microsoft HTML Help Workshop 1.3
+
+Included dependencies:
+- Scintilla editor (http://www.scintilla.org/)
+- HexView editor (https://github.com/strobejb/HexEdit)
+- const_string implementation
+- UART and timer implementation from ColdFire simulator by David Grant
+- CSizingControlBarCF docking bars
+
+Install Wix Installer and VS Wix Extension to build setup app.
+
+Copy boost 1.65.1 to a location of your choice and modify Common.props file to point to it.
+By default I look for it outside of the ColdFireStudio folder: $(SolutionDir)..\..\include\boost_1_65_1
+
+Open ColdFireStudio.sln in Visual Studio 2017, choose desired configuration, and build all projects.
+Executables are placed in 'bin' folder. To run they need access to two folders:
+'Config' and 'Monitor'. Config contain config.ini with simulator configuration, while Monitor
+contains CF binary program used to control execution of user programs.
+In VS this is accomplished by setting working directory to the solution folder.
+
+To install CF Studio open installer file from Setup/bin folder. Use either x64-Release or x86-Release flavor.

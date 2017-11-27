@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{5f393785-daab-4b75-aeb5-ebba9214c1e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Studio\res\about.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\arrow.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\close_tb.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\code.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\debug.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\disasm.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\ident_info.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\io_window.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\lua.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\memory_info.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Studio\res\Toolbar.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Studio\res\link.cur">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\Studio\Studio.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Studio\resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

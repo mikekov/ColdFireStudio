@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Simulator</title>
+
+	<link rel=stylesheet type="text/css" href="styles.css">
+</head>
+
+<body>
+
+<h2>Running ColdFire Binaries in Simulator</h2>
+
+<p>To load binary code into simulator use File/Load Code menu option (Ctrl+L):</p>
+
+<img src="Images/LoadCode.png" width="549" height="268" alt="Load Code"/>
+
+<p>Simulator supports binaries in S-Record and Intel Hex formats, as well as its own binary format (ColdFire Program), and raw binary code.</p>
+
+<p>Select file to load and choose desired options.
+Here <a href="http://www.uclinux.org/ports/coldfire/binary.html">&mu;CLinux</a> binary for 5602 is selected
+(<a href="http://www.uclinux.org/ports/coldfire/image-an5206-small-20000706.bin.gz">5206 small image</a>). Note: To run it "5206 board.ini" configuration has to be selected in CF Studio options.</p>
+
+<p>For a 5602 binary of &mu;CLinux pick ISA_A and $10000 load address and hit Load. Disassembly view will be open.</p>
+
+<img src="Images/DisasmView.png" width="947" height="726" alt="Disassembler" />
+
+<p>When code is available for simulation MCU Registers and memory window will not be grayed out any more. MCU registers can now be modified. Content of simulated memory can be changed too. MCU Registers window reports current state of the simulator (running, breakpoint hit, exception, ready, and finished).</p>
+
+<p>Clicking on any line in a disassembly view toggles break point.</p>
+<p>Pressing Simulator/Run (Alt+R) starts execution.</p>
+
+<p>In case of &mu;CLinux code simulator will stop right away with access violation. This is due to the code probing amount of RAM available on a board. Hit Simulator/Step Into Exception (Ctrl+F11) and Run (Alt+R) to continue and you should see terminal window opening up and Linux booting:</p>
+
+<img src="Images/uCLinux.png" width="576" height="394" alt="uCLinux"/>
+
+
+</body>
+</html>

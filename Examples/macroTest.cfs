@@ -1,0 +1,12 @@
+
+	*= $1000
+
+test	macro reg
+	move.%size #$1234, reg
+	endm
+
+	test.w a0
+
+	test.l d4
+
+;	test

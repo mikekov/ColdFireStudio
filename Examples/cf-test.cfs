@@ -1,0 +1,77 @@
+	*= $10000
+
+Assert	macro reg, value
+	cmp.l #value, reg
+	beq.s .skip
+	illegal
+.skip:
+	endm
+
+AssertD0	macro value
+	cmp.l #value, d0
+	beq.s .skip
+	illegal
+.skip:
+	endm
+
+
+	moveq #0, d0
+	AssertD0 0
+
+	moveq #1, d0
+	AssertD0 1
+
+	moveq #-1, d0
+	AssertD0 -1
+
+	moveq #127, d0
+	AssertD0 127
+
+	moveq #-128, d0
+	AssertD0 -128
+
+	mov3q #-1, d0
+	AssertD0 -1
+
+	mov3q #1, d0
+	AssertD0 1
+
+	mov3q #7, d0
+	AssertD0 7
+
+	mov3q #-1, d0
+	AssertD0 -1
+
+	clr.l d0
+	AssertD0 0
+
+	addq.l #1, d0
+	AssertD0 1
+
+	add.l #127, d0
+	AssertD0 128
+
+	subq.l #1, d0
+	AssertD0 127
+
+	sub.l #127, d0
+	AssertD0 0
+
+	add.l #-128, d0
+	AssertD0 -128
+
+	sub.l #-128, d0
+	AssertD0 0
+
+	move.l #$12345678, d0
+	AssertD0 $12345678
+
+	move.l #$55555555, d0
+	not.l d0
+	AssertD0 $AAAAAAAA
+
+	clr.l d0
+	neg.l d0
+	AssertD0 -1
+
+	nop

@@ -1,0 +1,1 @@
+Source files included in VS to avoid building boost filesystem lib

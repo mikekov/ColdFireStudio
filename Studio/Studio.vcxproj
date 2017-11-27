@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCTargetsPath Condition="'$(VCTargetsPath11)' != '' and '$(VSVersion)' == '' and '$(VisualStudioVersion)' == ''">$(VCTargetsPath11)</VCTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Studio</ProjectName>
+    <ProjectGuid>{3ADF6F64-D195-47C9-9E38-952811D947C8}</ProjectGuid>
+    <RootNamespace>LuaStudio</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\Common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\Common.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="..\Common.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="..\Common.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50522.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(StudioBinary)\</OutDir>
+    <IntDir>$(ProjectTemp)\</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
+    <EmbedManifest>false</EmbedManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(StudioBinary)\</OutDir>
+    <IntDir>$(ProjectTemp)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <EmbedManifest>true</EmbedManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>$(ProjectTemp)\</IntDir>
+    <OutDir>$(StudioBinary)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(ProjectTemp)\</IntDir>
+    <OutDir>$(StudioBinary)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>Static/6502.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>./CtrlBar;../scintilla/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;USE_SCINTILLA;_CRT_SECURE_NO_WARNINGS;_SCB_REPLACE_MINIFRAME;LUA_BUILD_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;AFX_RESOURCE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies);Imm32.lib</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile />
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapFileName />
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>res\manifest.txt;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>Static/6502.bsc</OutputFile>
+    </Bscmake>
+    <ManifestResourceCompile>
+      <ResourceOutputFileName>
+      </ResourceOutputFileName>
+    </ManifestResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>Debug/6502.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./CtrlBar;../scintilla/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;USE_SCINTILLA;_CRT_SECURE_NO_WARNINGS;_SCB_REPLACE_MINIFRAME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies);Imm32.lib</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>res\manifest.txt;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>Debug/6502.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;USE_SCINTILLA;_CRT_SECURE_NO_WARNINGS;_SCB_REPLACE_MINIFRAME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>./CtrlBar;../scintilla/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies);Imm32.lib</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>res\manifest64.txt;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies);Imm32.lib</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>./CtrlBar;../scintilla/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_SCB_REPLACE_MINIFRAME;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Manifest>
+      <AdditionalManifestFiles>res\manifest64.txt;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\BoostFilesystem\codecvt_error_category.cpp" />
+    <ClCompile Include="..\BoostFilesystem\error_code.cpp" />
+    <ClCompile Include="..\BoostFilesystem\operations.cpp" />
+    <ClCompile Include="..\BoostFilesystem\path.cpp" />
+    <ClCompile Include="..\BoostFilesystem\path_traits.cpp" />
+    <ClCompile Include="..\BoostFilesystem\portability.cpp" />
+    <ClCompile Include="..\BoostFilesystem\unique_path.cpp" />
+    <ClCompile Include="..\BoostFilesystem\utf8_codecvt_facet.cpp" />
+    <ClCompile Include="..\BoostFilesystem\windows_file_codecvt.cpp" />
+    <ClCompile Include="About.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="AsmSrcDoc.cpp" />
+    <ClCompile Include="AsmSrcView.cpp" />
+    <ClCompile Include="Broadcast.cpp" />
+    <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="CpuBar.cpp" />
+    <ClCompile Include="CpuDlg.cpp" />
+    <ClCompile Include="CustomTabCtrl.cpp" />
+    <ClCompile Include="CXMultiDocTemplate.cpp" />
+    <ClCompile Include="Debugger.cpp" />
+    <ClCompile Include="Defs.cpp" />
+    <ClCompile Include="DisasmDoc.cpp" />
+    <ClCompile Include="DisasmView.cpp" />
+    <ClCompile Include="DisasmBar.cpp" />
+    <ClCompile Include="DisplayDlg.cpp" />
+    <ClCompile Include="EditBox.cpp" />
+    <ClCompile Include="FlatBar.cpp" />
+    <ClCompile Include="FormatNums.cpp" />
+    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="HyperLink.cpp" />
+    <ClCompile Include="IntelHex.cpp" />
+    <ClCompile Include="IOWindow.cpp" />
+    <ClCompile Include="LCDDisplayDlg.cpp" />
+    <ClCompile Include="LEDSegmentsDlg.cpp" />
+    <ClCompile Include="LoadCode.cpp" />
+    <ClCompile Include="MemoryBar.cpp" />
+    <ClCompile Include="MemorySource.cpp" />
+    <ClCompile Include="MemoryWnd.cpp" />
+    <ClCompile Include="LoadCodeDlg.cpp" />
+    <ClCompile Include="load_jpeg.cpp" />
+    <ClCompile Include="LogBuffer.cpp" />
+    <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="MemoryDC.cpp" />
+    <ClCompile Include="MotorolaSRecord.cpp" />
+    <ClCompile Include="NumberEdit.cpp" />
+    <ClCompile Include="Options.cpp" />
+    <ClCompile Include="SaveCode.cpp" />
+    <ClCompile Include="SettingsClient.cpp" />
+    <ClCompile Include="ProtectedCall.cpp" />
+    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="StaticLink.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="TypeTranslators.cpp" />
+    <ClCompile Include="Utf8.cpp" />
+    <ClCompile Include="CtrlBar\scbarcf.cpp" />
+    <ClCompile Include="CtrlBar\scbarg.cpp" />
+    <ClCompile Include="CtrlBar\sizecbar.cpp" />
+    <ClCompile Include="scintilla-mfc\ScintillaCtrl.cpp" />
+    <ClCompile Include="scintilla-mfc\ScintillaDocView.cpp" />
+    <ClCompile Include="UIElements.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="About.h" />
+    <ClInclude Include="App.h" />
+    <ClInclude Include="AsmSrcDoc.h" />
+    <ClInclude Include="AsmSrcView.h" />
+    <ClInclude Include="Broadcast.h" />
+    <ClInclude Include="CFTypes.h" />
+    <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="CpuBar.h" />
+    <ClInclude Include="CpuDlg.h" />
+    <ClInclude Include="CXMultiDocTemplate.h" />
+    <ClInclude Include="Debugger.h" />
+    <ClInclude Include="Defs.h" />
+    <ClInclude Include="DisasmDoc.h" />
+    <ClInclude Include="DisasmView.h" />
+    <ClInclude Include="DialEditBrkp.h" />
+    <ClInclude Include="DisasmBar.h" />
+    <ClInclude Include="DisplayDlg.h" />
+    <ClInclude Include="DynamicHelp.h" />
+    <ClInclude Include="EditBox.h" />
+    <ClInclude Include="FlatBar.h" />
+    <ClInclude Include="FormatNums.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="HexViewWnd.h" />
+    <ClInclude Include="HyperLink.h" />
+    <ClInclude Include="IOChannel.h" />
+    <ClInclude Include="IOWindow.h" />
+    <ClInclude Include="LCDDisplayDlg.h" />
+    <ClInclude Include="LEDSegmentsDlg.h" />
+    <ClInclude Include="ListCtrlBar.h" />
+    <ClInclude Include="MemoryBar.h" />
+    <ClInclude Include="MemorySource.h" />
+    <ClInclude Include="MemoryWnd.h" />
+    <ClInclude Include="LoadCodeDlg.h" />
+    <ClInclude Include="load_jpeg.h" />
+    <ClInclude Include="LogBuffer.h" />
+    <ClInclude Include="LogWindow.h" />
+    <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="MemoryChg.h" />
+    <ClInclude Include="MemoryDC.h" />
+    <ClInclude Include="Options.h" />
+    <ClInclude Include="OutputMem.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="PointerView.h" />
+    <ClInclude Include="ProtectedCall.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="SettingsClient.h" />
+    <ClInclude Include="StaticLink.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TypeTranslators.h" />
+    <ClInclude Include="Utf8.h" />
+    <ClInclude Include="CtrlBar\scbarcf.h" />
+    <ClInclude Include="CtrlBar\scbarg.h" />
+    <ClInclude Include="CtrlBar\sizecbar.h" />
+    <ClInclude Include="scintilla-mfc\ScintillaCtrl.h" />
+    <ClInclude Include="scintilla-mfc\ScintillaDocView.h" />
+    <ClInclude Include="Assembler.h" />
+    <ClInclude Include="UIElements.h" />
+    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="WndTimer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\about.jpg" />
+    <Image Include="res\arrow.ico" />
+    <Image Include="res\close_tb.bmp" />
+    <Image Include="res\code.bmp" />
+    <Image Include="res\code1.bmp" />
+    <Image Include="res\ColdFire.ico" />
+    <Image Include="res\debug.bmp" />
+    <Image Include="res\disasm.ico" />
+    <Image Include="res\doc.ico" />
+    <Image Include="res\ident_info.ico" />
+    <Image Include="res\io_window.ico" />
+    <Image Include="res\led-16segment.bmp" />
+    <Image Include="res\led-7segment.bmp" />
+    <Image Include="res\memory_info.ico" />
+    <Image Include="res\stat-icons.bmp" />
+    <Image Include="res\state-icons.bmp" />
+    <Image Include="res\Toolbar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Studio.rc">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;AFX_RESOURCE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;AFX_RESOURCE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_UNICODE;UNICODE;AFX_RESOURCE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_UNICODE;UNICODE;AFX_RESOURCE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\link.cur" />
+    <None Include="res\settings.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ColdFire\ColdFire.vcxproj">
+      <Project>{827692ef-d9d4-4618-8e2b-83e8adf83f1c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\HexView\HexView.vcxproj">
+      <Project>{3fba3178-4ae6-4103-9eb2-542901d978b7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ResDll\ResDll.vcxproj">
+      <Project>{58d58ab4-e22d-4253-be2a-bf266c86498d}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\scintilla\Scintilla\Scintilla.vcxproj">
+      <Project>{b67ec390-1b8f-44bf-9bd0-80daf97113b3}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\Bitstream Vera Sans Mono.ttf" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

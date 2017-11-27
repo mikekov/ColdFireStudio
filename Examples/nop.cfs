@@ -1,0 +1,39 @@
+	*= $20000
+
+test = d0-d3
+
+PushRegs	macro regs
+.size	set 0
+.mask set 1
+	repeat 16
+		if .mask & regs
+.size set .size + 1
+		endif
+.mask set .mask << 1
+	endr
+	if .size > 2
+		lea (-.size*4, sp), sp
+	else
+		subq.l #.size*4, sp
+	endif
+	movem.l regs, (sp)
+	endm
+
+
+;regs0	reglist d0-d5
+
+	PushRegs test
+
+	rte
+
+	halt
+
+;	movem regs, (sp)
+
+	nop
+
+	*= $20000-4
+
+	nop
+
+	nop

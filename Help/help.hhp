@@ -1,0 +1,32 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=..\Studio.chm
+Contents file=Table of Contents.hhc
+Default Window=MainWnd
+Default topic=Intro.htm
+Display compile progress=No
+Full-text search=Yes
+Index file=Index.hhk
+Language=0x409 English (United States)
+Title=ColdFire Studio
+
+[WINDOWS]
+MainWnd="ColdFire Studio Help","Table of Contents.hhc","Index.hhk","Intro.htm",,,,,,0x42520,,0x3006,[40,20,770,620],,,,,,,0
+
+
+[FILES]
+Intro.htm
+FirstSteps.htm
+Studio.htm
+Main-1.htm
+Main-2.htm
+Main-3.htm
+Assembler.htm
+Simulator.htm
+Assembler-1.htm
+Assembler-2.htm
+Simulator-1.htm
+Simulator-2.htm
+Options.htm
+
+[INFOTYPES]

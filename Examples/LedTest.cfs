@@ -1,0 +1,120 @@
+; Title: Test LED display windows in CF simulator
+
+	include "Monitor.cfs"
+
+	*= $10000
+
+Start:
+	lea LED_Test(pc), a0
+	M_SuperCall
+
+	; terminate program
+	M_Terminate
+
+
+LED_Test:
+	move.l #$10000000, a0
+	movec.l a0, mbar
+	add.l #$1000, a0
+	move.l a0, a1
+	add #$80, a0
+
+	lea LED_7_Segment(pc), a2
+.next
+	move.l (a2)+, d0
+	beq.s .brk
+	move.l d0, (a1)+
+	bra.s .next
+.brk
+
+	lea Hello(pc), a1
+	lea LED_16_Segment(pc), a2
+.next2
+	clr.l d0
+	move.b (a1)+, d0
+	beq.s .end
+	and.l #$7f, d0
+	sub.l #' ', d0
+	move.l (a2, d0*4), d0
+	move.l d0, (a0)+
+	bra.s .next2
+.end
+	rts
+
+Hello:
+	dc.b "HELLO COLDFIRE!", 0
+	align
+
+LED_7_Segment:
+	;dc.l $80000000, $40000000, $20000000, $10000000, $08000000, $04000000, $02000000, $01000000, $0
+
+	dc.l $3f000000	; 0
+	dc.l $06000000	; 1
+	dc.l $5b000000	; 2
+	dc.l $4f000000	; 3
+	dc.l $66000000	; 4
+	dc.l $6d000000	; 5
+	dc.l $7d000000	; 6
+	dc.l $07000000	; 7
+	dc.l $7f000000	; 8
+	dc.l $6f000000	; 9
+	dc.l $77000000	; A
+	dc.l $7c000000	; b
+	dc.l $39000000	; c
+	dc.l $5e000000	; d
+	dc.l $79000000	; E
+	dc.l $71000000	; f
+	dc.l $0
+	dc.l $40000000	; -
+	dc.l $80000000	; .
+
+LED_16_Segment:
+;	dc.l $80000000, $40000000, $20000000, $10000000, $08000000, $04000000, $02000000, $01000000
+;	dc.l $00800000, $00400000, $00200000, $00100000, $00080000, $00040000, $00020000, $00010000, $0
+
+	dc.l $0	; space
+	dc.l $000c8000	; !
+	dcb.l 14, 0
+	dc.l $00ff0000	; 0
+	dc.l $100c0000	; 1
+	dc.l $03770000	; 2
+	dc.l $033f0000	; 3
+	dc.l $038c0000	; 4
+	dc.l $03bb0000	; 5
+	dc.l $03fb0000	; 6
+	dc.l $50030000	; 7
+	dc.l $03ff0000	; 8
+	dc.l $03bf0000	; 9
+	dcb.l 6, 0
+	dc.l $0
+	dc.l $03cf0000	; A
+	dc.l $493f0000	; B
+	dc.l $00f30000	; C
+	dc.l $483f0000	; D
+	dc.l $03f30000	; E
+	dc.l $03c30000	; F
+	dc.l $01fb0000	; G
+	dc.l $03cc0000	; H
+	dc.l $48330000	; I
+	dc.l $007c0000	; J
+	dc.l $32c00000	; K
+	dc.l $00f00000	; L
+	dc.l $14cc0000	; M
+	dc.l $24cc0000	; N
+	dc.l $00ff0000	; O
+	dc.l $03c70000	; P
+	dc.l $20ff0000	; Q
+	dc.l $23c70000	; R
+	dc.l $03bb0000	; S
+	dc.l $48030000	; T
+	dc.l $00fc0000	; U
+	dc.l $90c00000	; V
+	dc.l $a0cc0000	; W
+	dc.l $b4000000	; X
+	dc.l $54000000	; Y
+	dc.l $90330000	; Z
+	dcb.l 5, 0
+	dcb.l 32, 0		; lowercase
+	dc.l 0
+
+	end Start

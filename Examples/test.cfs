@@ -1,0 +1,52 @@
+;	move #$8000, sr
+
+	*= $6000
+
+IO	= $ffffff80
+
+	trap #7
+test:
+	clr.w IO
+;	move.w d0, IO
+	clr.l d0
+	move.w #'A', d0
+.loop:
+	move.w d0, IO+2
+	addq #1, d0
+	cmp.l #'Z', d0
+	bne.s .loop
+
+	addq #3, a0
+	addq #1, a0
+	subq #2, a0
+	link a0, #-10
+	tst.w a0
+	bclr #123, d0
+	addq #8, d0
+	move #$8000, sr
+	nop
+;	bra.s test
+	beq test
+	move.b #$12, d1
+;	.end
+	move.l #$abcdef, d0
+	move.l (test, pc), d1
+	add.l (test, pc, a0*2), d1
+	lea (dst, pc), a0
+	move.l (src, pc), (0, a0)
+	tst.l d0
+	btst #1, d0
+	bne test
+	nop
+	rts
+	trap #0
+	illegal
+;	mov3q #1, (a0)
+
+src:
+
+	dc.w $1234
+
+dst:
+
+	dc.w $cba9

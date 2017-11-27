@@ -1,0 +1,14 @@
+	ORG	$1000
+START:				; first instruction of program
+
+	btst #5, lab(pc)
+
+
+	MOVE.B	#9,D0
+	TRAP	#15		; halt simulator
+
+* Variables and Strings
+
+lab:	dc.w 0
+
+	END	START		; last line of source

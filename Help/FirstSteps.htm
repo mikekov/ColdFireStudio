@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>ColdFire Studio</title>
+
+	<link rel=stylesheet type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>First Steps</h1>
+
+<h2>Writing and Assembling Programs</h2>
+
+<p>To illustrate ColdFire Studio let's write first program.
+Copy and paste below code into ColdFire Studio editor window and save it under any name.</p>
+
+<pre>
+	; code location
+	*= $10000
+
+Start:
+	; clear terminal window
+	move.w #1, -(sp)
+	trap #15
+	addq.l #2, sp
+
+	; print message
+	lea (.msg, pc), a0
+	move.w #4, -(s0)
+	trap #15
+	addq.l #2, sp
+
+	; terminate
+	clr.w -(sp)
+	trap #15
+
+.msg:
+	dc.b "Hello World.", 10, 0
+	align
+
+	; execute simulation from 'Start' label
+	end Start
+</pre>
+
+
+<p>Press Alt+A (Simulator/Assemble and Debug) to compile sample program. As written it contains an error in line 12.
+Red marker will be placed in this line and status at the bottom of the screen will say "Address register expected".
+This is how errors are reported. Correct it by changing s0 to sp. Press Alt+A again. This time assembly should succeed.
+Yellow marker will show up in line 6. It shows current instruction to be executed.</p>
+
+<p>Note: To check program syntax without entering debugger press Alt+C (Simulator/Check Document).</p>
+
+<h2>Debugging</h2>
+
+<p>As soon as program is assembled without errors it is ready to run.
+Following commands found under 'Simulator' menu are used to run and debug code:</p>
+
+<ul>
+	<li>Run - Execute code from current location.</li>
+	<li>Step Into - execute one instruction. Enter into subroutines and trap handlers.</li>
+	<li>Step Over - execute function in one step.</li>
+	<li>Step Out - run till you exit current routine.</li>
+	<li>Run to Cursor - run to the line with cursor.</li>
+	<li>Step Into Exception - when simulator stops due to exception, one can continue execution into the exception handler code.</li>
+	<li>Restart - start again.</li>
+	<li>Break - interrupt execution.</li>
+	<li>Toggle Breakpoint - if current line has generated executable code debugger breakpoint can be set or cleared here.</li>
+</ul>
+
+<h2>Binary Code</h2>
+
+<p>Assembled code can be saved (File/Save Code), and loaded (File/Load Code). Supported formats include Intel Hex and Motorola S-Record.</p>
+
+</body>
+</html>

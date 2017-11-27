@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+    <ProjectOutput>$(SolutionDir)bin\$(Platform)-$(Configuration)\$(ProjectName)</ProjectOutput>
+    <ProjectTemp>$(SolutionDir)obj\$(Platform)-$(Configuration)\$(ProjectName)</ProjectTemp>
+    <StudioBinary>$(SolutionDir)bin\$(Platform)-$(Configuration)</StudioBinary>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50522.1</_ProjectFileVersion>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\include\boost_1_65_1</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="ProjectOutput">
+      <Value>$(ProjectOutput)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ProjectTemp">
+      <Value>$(ProjectTemp)</Value>
+    </BuildMacro>
+    <BuildMacro Include="StudioBinary">
+      <Value>$(StudioBinary)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

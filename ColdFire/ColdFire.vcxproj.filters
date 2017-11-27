@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Instructions">
+      <UniqueIdentifier>{dc4e9194-62ac-49d8-9046-bc88b29b224b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BoostFilesystem">
+      <UniqueIdentifier>{a05d42ad-f4a3-4b9c-b9b9-5e0cd9689881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instructions\MAC">
+      <UniqueIdentifier>{b2dd57d2-2975-475f-9d1c-6a9e58f796ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Peripherals">
+      <UniqueIdentifier>{2a00dac8-661c-4a12-874c-585312831ac0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Asm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Assembler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFAsm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DecodedInstr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EmitCode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrCodes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Instruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InstructionMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InstructionRepository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MarkArea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Add.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\AddA.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\AddQ.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\And.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\AndI.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Bit.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\BitRev.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Branch.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Clr.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Cmp.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Cpushl.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Div.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Ext.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Filler.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Halt.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Illegal.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Jump.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Lea.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\LinkUnlink.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Move.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\MoveC.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\MoveM.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\MoveQ.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\MoveToSr.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Mul.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Nop.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\NotNeg.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Ori.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Rts.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Set.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Shift.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Stop.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Sub.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\SubQ.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Swap.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Test.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Trap.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputPointer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Pulse.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\WDData.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Mov.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Tpf.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Sats.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\FF1.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\InTouch.cpp">
+      <Filter>Instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\codecvt_error_category.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\error_code.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\operations.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\path.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\path_traits.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\portability.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\unique_path.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\utf8_codecvt_facet.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoostFilesystem\windows_file_codecvt.cpp">
+      <Filter>BoostFilesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripheral.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PeripheralRepository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\SimpleUART.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\SimpleInterruptController.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\SimpleTimer.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\Dummy.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="RegisterNames.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructions\Mac.cpp">
+      <Filter>Instructions\MAC</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\SimpleOut.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="Isa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\SimpleGPIO.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\BlockDevice.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\LEDSegments.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\SimpleLCDController.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripherals\font5x7.cpp">
+      <Filter>Peripherals</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Asm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Assembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFAsm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DecodedInstr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EmitCode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrCodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ident.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImplDetails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Import.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InstructionMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InstructionRepository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Isa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MachineDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MarkArea.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputPointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Breakpoints.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripheral.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InstructionRange.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PeripheralRepository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\SimpleUART.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\SimpleInterruptController.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="InterruptController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\SimpleTimer.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\Dummy.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="Export.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\SimpleOut.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="HexNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\SimpleGPIO.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="PeripheralDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\BlockDevice.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\LEDSegments.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripherals\SimpleLCDController.h">
+      <Filter>Peripherals</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="app.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

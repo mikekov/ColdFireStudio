@@ -1,0 +1,67 @@
+
+	*= $4000
+	bra test
+	moveq #1, d0
+	cmp.l #14, d0
+	bhi.s .end
+	moveq #'a', d1
+	trap #15
+.end:
+	clr.l d0
+	trap #15
+
+test
+	moveq #1, d1
+	moveq #2, d2
+
+	cmp.l d1, d2
+	cmp.l d2, d1
+
+	blt .s1
+	nop
+.s1
+	ble .s2
+	nop
+.s2
+	beq .s3
+	nop
+.s3
+	bne .s4
+	nop
+.s4
+	bgt .s5
+	nop
+.s5
+	bge .s6
+	nop
+.s6
+	nop
+
+;CMP A,B         signed          unsigned
+;-------         ------          --------
+;B <; A           BLT             BLO (or BCS)
+;B <;= A          BLE             BLS
+;B = A           BEQ             BEQ
+;B <;>; A          BNE             BNE
+;B >; A           BGT             BHI
+;B >;= A          BGE             BHS (or BCC)
+
+	end
+
+	moveq #100, d0
+	sub.l #50, d0
+	cmp.l #10, d0
+	bhi.s .skip
+	nop
+.skip
+	blo.s .skp1
+	nop
+.skp1:
+	cmp.l #2000, d0
+	bhi.s .skip2
+	nop
+.skip2
+	blo.s .skip3
+	nop
+.skip3
+

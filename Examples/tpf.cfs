@@ -1,0 +1,19 @@
+
+	*= $1000
+
+	sats d0
+
+;	bra.s here
+;	repeat 26
+;	nop
+;	endr
+start
+	tpf
+	nop
+	tpf here
+	nop
+here
+	tpf there
+	move.w #1200, d0
+there
+	nop

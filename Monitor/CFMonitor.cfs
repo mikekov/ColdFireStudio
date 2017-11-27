@@ -1,0 +1,466 @@
+; ColdFire Studio Monitor
+;
+; Basic routines to make working in simulator easier
+; Functions are accessible through the Trap #15
+
+
+; vector table
+	*= 0
+VectTable:
+	dc.l 0					; initial supervisor stack ptr (not used; reling on a simulator to provide RAM location)
+	dc.l Reset				; initial/reset PC value
+	dc.l AccessError		; 2 008 Fault  Access error
+	dc.l ExceptionRoutine	; 3 00C Fault Address error
+	dc.l ExceptionRoutine	; 4 010 Fault Illegal instruction
+	dc.l ExceptionRoutine	; 52 014 Fault Divide by zero
+	dc.l ExceptionRoutine	; 
+	dc.l ExceptionRoutine	; 6-7 018-01C - Reserved
+	dc.l ExceptionRoutine	; 8 020 Fault Privilege violation
+	dc.l ExceptionRoutine	; 9 024 Next Trace
+	dc.l ExceptionRoutine	; 10 028 Fault Unimplemented line-a opcode
+	dc.l ExceptionRoutine	; 11 02C Fault Unimplemented line-f opcode
+	dc.l ExceptionRoutine	; 12 030 Next Non-PC breakpoint debug interrupt
+	dc.l ExceptionRoutine	; 13 034 Next PC breakpoint debug interrupt
+	dc.l ExceptionRoutine	; 14 038 Fault Format error
+	dc.l ExceptionRoutine	; 15 03C Next Uninitialized interrupt
+	dc.l ExceptionRoutine	;
+	dc.l ExceptionRoutine	;
+	dc.l ExceptionRoutine	;
+	dc.l ExceptionRoutine	;
+	dc.l ExceptionRoutine	;
+	dc.l ExceptionRoutine	;
+	dc.l ExceptionRoutine	;
+	dc.l ExceptionRoutine	; 16-23 040-05C - Reserved
+	dc.l ExceptionRoutine	; 24 060 Next Spurious interrupt
+	repeat 7
+	dc.l InterruptRoutine	; 25-31 064-07C Next Level 1-7 autovectored interrupts
+	endr
+	repeat 15
+	dc.l TrapRoutine		; 32-46 080-0B8 Next Trap #0-14 instructions
+	endr
+	dc.l MonitorEntry		; 47 0BC Next Trap #15 instructions
+	dc.l ExceptionRoutine	; 48 0C0 Fault Floating-point branch on unordered condition
+	dc.l ExceptionRoutine	; 49 0C4 NextFP or Fault Floating-point inexact result
+	dc.l ExceptionRoutine	; 50 0C8 NextFP Floating-point divide-by-zero
+	dc.l ExceptionRoutine	; 51 0CC NextFP or Fault Floating-point underflow
+	dc.l ExceptionRoutine	; 52 0D0 NextFP or Fault Floating-point operand error
+	dc.l ExceptionRoutine	; 53 0D4 NextFP or Fault Floating-point overflow
+	dc.l ExceptionRoutine	; 54 0D8 NextFP or Fault Floating-point input not-a-number (NAN)
+	dc.l ExceptionRoutine	; 55 0DC NextFP or Fault Floating-point input denormalized number
+	repeat 5
+	dc.l ExceptionRoutine	; 56-60 0E0-0F0 - Reserved
+	endr
+	dc.l ExceptionRoutine	; 61 0F4 Fault Unsupported instruction
+	dc.l ExceptionRoutine	; 
+	dc.l ExceptionRoutine	; 62-63 0F8-0FC - Reserved
+	repeat 192
+	dc.l ExceptionRoutine	; 64-255 100-3FC Next User-defined interrupts
+	endr
+
+	if * != $400
+	  error "vector table length error"
+	endif
+; ==================================================
+
+;SimulatorBreak	macro
+;	endm
+
+	*= $400
+
+Reset:
+	; this routine is called before simulation starts
+	; D0/D1 contain hardware configuration info (if implemented/simulated)
+	; ISA is of interest to determine if we have separate supervisor SP register
+
+	; RAM sizes and location vary, so let's ask simulator where to find it
+	;move.l (port_ram_base).w, a0
+	move.l (port_ram_end).w, a0
+	addq.l #1, a0
+
+	; remember hardware configuration at the top of RAM
+	move.l d0, -(a0)
+	move.l d1, -(a0)
+
+	; point VBR to our vector table
+	move.l #VectTable, d0
+	movec.l d0, vbr
+
+	; establish stack pointer
+	move.l a0, sp
+
+	; check if we have user stack pointer
+	bsr.s HasSupervisorStackPointer
+	beq.s .skip
+
+	; establish user stack pointer below supervisor SP
+	move.l sp, a0
+	sub.l #$400, a0
+	move a0, usp
+.skip
+	; program to start (if any)
+	move.l (port_sim_start).w, d0
+	; if there's nothing to run, stop execution
+	beq.s .halt
+
+	; report memory config for a starting program
+	move.l a0, a1					; mem top
+	move.l (port_ram_base).w, a0	; mem start
+
+	; enter user mode
+	move.w #$0000, sr
+
+; move.w #14, -(sp)
+; trap #15
+
+	; start simulated program
+	move.l d0, a2
+	jmp (a2)
+
+.halt
+	clr.w -(sp)
+	trap #15
+	addq.l #2, sp
+	bra.s .halt
+
+
+HasSupervisorStackPointer
+	;move.l (port_ram_base).w, a0
+	move.l (port_ram_end).w, a0
+	; hardware configuration was stored here
+	move.l (1-4, a0), d0
+	and.l #$00f0, d0	; ISA_A is 0
+	rts		; anything but zero means that OTHER_A7 is present
+
+ExceptionRoutine:
+	;todo report vector
+	bra Terminate
+
+InterruptRoutine:
+	; todo
+	rte
+
+TrapRoutine:
+	; not used TRAPs
+	rte
+
+AccessError:
+;	move.w #$2700, sr	; block interrupts
+;	link #-6*4, a6
+;	movem d0-d2/a0-a2, (sp)
+
+;	lea .msg(pc), a0
+;	bsr PutS
+
+;	clr.l d0
+;	move.w 8(a6), d0	; frame format
+;	lsr #16, d0			; frame format word
+;	bsr PrintHex
+
+;	lea .addr(pc), a0
+;	bsr PutS
+
+;	move.w 4(a6), d0	; address
+;	bsr PrintHex
+
+;	movem (sp), d0-d2/a0-a2
+;	unlk a6
+	bra Terminate
+
+.msg:
+	dc.b "\nAccess Error: ", 0
+	dc.b " Adress: ", 0
+
+	align 4
+
+
+; ==================================================
+;
+; Monitor routines
+;
+; first word on a stack should contain number of monitor routine to call
+; D0/D1/D2/A0/A1/A2 registers can contain input parameters, if any;
+; address parameters are expected in A0/A1/A2 registers
+; numbers are expected in D0/D1/D2
+;
+; registers from D3-D7, and A3-A6 are not changed
+;
+; results, if any, are returned in D0/D1
+
+	nop
+	nop
+	nop
+MonitorEntry:
+	link a3, #-16
+	movem.l d0/a0, (sp)
+	movem.l d3/a4, (8, sp)
+	clr.l d3
+	bsr HasSupervisorStackPointer
+	beq.s .use_single_stack		; single stack pointer
+
+	btst #5, (4+2, a3)			; check supervisor bit in SR from exception frame
+;	move.w (4+2, a3), d0		; SR from exception frame
+;	btst #13, d0				; supervisor state before entering monitor?
+	bne.s .use_super
+
+	move.l usp, a0
+	move.w (a0), d3				; # of routine to run (from user stack)
+	bra.s .go
+
+.use_super:
+	move.b (4, a3), d3			; use stack misalignment data
+	lsr.l #4, d3
+	and.l #3, d3
+	move.w (18, a3, d3), d3		; # of routine to run (from supervisor stack)
+	bra.s .go
+
+.use_single_stack:
+	move.b (4, a3), d3			; use stack misalignment data
+	lsr.l #4, d3
+	and.l #3, d3
+	move.w (12, a3, d3), d3		; # of routine to run (from A7, there's only one)
+
+.go:
+	cmp.l #[JumpTable_end - JumpTable] / 4, d3
+	bhs.s .end
+	move.l (JumpTable, pc, d3*4), a4
+	movem.l (sp), d0/a0
+	jsr (a4)
+.end:
+	movem.l (8, sp), d3/a4
+	unlk a3
+	rte
+
+JumpTable:
+	dc.l Terminate, Clear, PutC, GetC, PutS, GetS, PutInt, PutUInt, PutHex
+	dc.l GetCursorX, GetCursorY, SetCursorX, SetCursorY
+	dc.l GetTerminalWidth, GetTerminalHeight, SetTerminalWidth, SetTerminalHeight
+	dc.l GetRTTimer, GetDateTime, GetRandomNumber, RunAsSuper, Sleep
+JumpTable_end:
+
+; ==================================================
+
+; stop program execution
+Terminate:
+	halt
+	bra.s Terminate
+
+GetRTTimer:
+	move.l (port_real_time_timer).w, d0
+	rts
+
+GetDateTime:
+	move.l (port_real_date_time).w, d0
+	rts
+
+; output single character from D0.b to the terminal window
+; new line combinations are recognized and interpreted accordingly
+PutC:
+	move.w d0, (port_in_out).w
+	rts
+
+; read single character from terminal into D0.b; return 0 if no characters are ready
+GetC:
+	move.w (port_in_out).w, d0
+	rts
+
+; output nul-terminated string from (A0) into the terminal window
+PutS:
+	clr.l d0
+	bra.s .get
+.output:
+	move.w d0, (port_in_out).w
+.get:
+	move.b (a0)+, d0
+	bne.s .output
+	rts
+
+; read string into (A0), D0 - buffer size
+; returns NUL terminated string
+GetS:
+	tst.l d0	; length of the buffer in (A0)
+	beq.s .ret
+	clr.l d1
+	subq #1, d0	; space for NUL
+	beq.s .done
+.read:
+	move.w (port_in_out).w, d1
+	beq.s .read
+	move.b d1, (a0)+
+	cmp.l #13, d1
+	beq.s .done
+	subq #1, d0
+	bne.s .read
+.done
+	clr.b (a0)
+.ret:
+	rts
+
+
+PutInt:
+	tst.l d0
+	bpl.s PutUInt
+	; minus
+	moveq.l #'-', d1
+	move.w d1, (port_in_out).w
+	neg.l d0
+
+PutUInt:
+	move.l d3, -(sp)
+	clr.b d3
+	lea .nums(pc), a1
+.next_digit:
+	moveq.l #-1, d2
+	move.l (a1)+, d1
+	beq.s .exit
+.next:
+	addq.l #1, d2
+	cmp.l d1, d0
+	blo.s .digit
+	sub.l d1, d0
+	bra.s .next
+.digit
+	tst.b d3
+	bne.s .output
+	tst.l d2
+	beq.s .next_digit
+.output
+	add.l #'0', d2
+	; output d2
+	move.w d2, (port_in_out).w
+	st d3
+	bra.s .next_digit
+.exit:
+	tst.b d3	; have any digits been outputted?
+	bne.s .ret
+	; output lone zero
+	moveq.l #'0', d0
+	move.w d0, (port_in_out).w
+.ret
+	move.l (sp)+, d3
+	rts
+.nums:
+.num	set 1000000000
+	repeat 10
+	dc.l .num
+.num	set .num / 10
+	endr
+	dc.l 0	; sentry
+
+
+; output hex number from D0; it's D1 bytes long
+PutHex:
+	extb.l d1
+	beq.s .ret
+	cmp.l #4, d1
+	bhi.s .ret
+.default
+	moveq #4, d1
+.ok
+	lsl #1, d1		; count nibbles
+	move.l sp, a0
+	link a1, #-10
+	clr.b -(a0)		; end of string
+.next
+	move.b d0, d2
+	and.l #$f, d2
+	move.b .hex(pc, d2), -(a0)
+	lsr.l #4, d0
+	subq #1, d1
+	bne.s .next
+	; print hex
+	bsr PutS
+	unlk a1
+.ret
+	rts
+.hex
+	dc.b "0123456789ABCDEF"
+	align
+
+; clear terminal window
+Clear:
+	clr.w (port_clear).w
+	rts
+
+; cursor position in terminal window
+GetCursorX:
+	move.w (port_x_pos).w, d0
+	rts
+GetCursorY:
+	move.w (port_y_pos).w, d0
+	rts
+SetCursorX:
+	move.w d0, (port_x_pos).w
+	rts
+SetCursorY:
+	move.w d0, (port_y_pos).w
+	rts
+
+; terminal window size
+GetTerminalWidth:
+	move.w (port_width).w, d0
+	rts
+GetTerminalHeight:
+	move.w (port_height).w, d0
+	rts
+SetTerminalWidth:
+	move.w d0, (port_width).w
+	rts
+SetTerminalHeight:
+	move.w d0, (port_height).w
+	rts
+
+; read random integer from simulator (16 bits or less)
+GetRandomNumber:
+	clr.l d0
+	move.w (port_rnd).w, d0
+	rts
+
+; run user subroutine in supervisor mode
+RunAsSuper:
+	jmp (a0)
+
+; sleep for D0 milliseconds
+Sleep:
+	move.l d0, d1
+	bsr GetRTTimer
+	add d0, d1
+	bcc.s .wait
+	; handle overflow
+	moveq.l #-1, d0
+	rts
+.wait:
+	; todo
+	bsr GetRTTimer
+	cmp.l d1, d0
+	blo.s .wait
+
+	rts
+
+; SimulatorPort starts here
+	*= $FFFFA000
+port_ram_base	; base of RAM
+	ds.l 1
+port_ram_end	; end of RAM
+	ds.l 1
+port_real_time_timer	; timer of 1 ms resolution
+	ds.l 1
+port_real_date_time
+	ds.l 1
+port_sim_start	; address of program to start or 0
+	ds.l 1
+port_clear
+	ds.w 1
+port_in_out
+	ds.w 1
+port_x_pos
+	ds.w 1
+port_y_pos
+	ds.w 1
+port_width
+	ds.w 1
+port_height
+	ds.w 1
+port_rnd
+	ds.w 1
+
+	end Reset

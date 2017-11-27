@@ -1,0 +1,13 @@
+; Title: 
+
+	*= $10000
+
+Start:
+	
+
+
+	; terminate program
+	clr.w -(sp)
+	trap #15
+
+	end Start

@@ -1,0 +1,15 @@
+	*= $10000
+
+;	dc.w 1
+	dc.w $a000
+
+	divu.w d4, d5
+
+	lea 0, a0
+	move.w d0, 1(a0)
+
+	move.w sr, d0
+
+	illegal
+
+	nop

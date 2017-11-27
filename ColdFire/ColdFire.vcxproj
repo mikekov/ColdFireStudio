@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCTargetsPath Condition="'$(VCTargetsPath11)' != '' and '$(VSVersion)' == '' and '$(VisualStudioVersion)' == ''">$(VCTargetsPath11)</VCTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{827692EF-D9D4-4618-8E2B-83E8ADF83F1C}</ProjectGuid>
+    <RootNamespace>CF</RootNamespace>
+    <Keyword>ManagedCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Common.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50522.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(StudioBinary)\</OutDir>
+    <IntDir>$(ProjectTemp)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(StudioBinary)\</OutDir>
+    <IntDir>$(ProjectTemp)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(StudioBinary)\</OutDir>
+    <IntDir>$(ProjectTemp)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(StudioBinary)\</OutDir>
+    <IntDir>$(ProjectTemp)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;BUILDING_CF_ASM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies />
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;BUILDING_CF_ASM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;BUILDING_CF_ASM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>NDEBUG;BUILDING_CF_ASM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+    <Reference Include="System.Data">
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+    <Reference Include="System.Xml">
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\BoostFilesystem\codecvt_error_category.cpp" />
+    <ClCompile Include="..\BoostFilesystem\error_code.cpp" />
+    <ClCompile Include="..\BoostFilesystem\operations.cpp" />
+    <ClCompile Include="..\BoostFilesystem\path.cpp" />
+    <ClCompile Include="..\BoostFilesystem\path_traits.cpp" />
+    <ClCompile Include="..\BoostFilesystem\portability.cpp" />
+    <ClCompile Include="..\BoostFilesystem\unique_path.cpp" />
+    <ClCompile Include="..\BoostFilesystem\utf8_codecvt_facet.cpp" />
+    <ClCompile Include="..\BoostFilesystem\windows_file_codecvt.cpp" />
+    <ClCompile Include="Asm.cpp" />
+    <ClCompile Include="Assembler.cpp" />
+    <ClCompile Include="BasicTypes.cpp" />
+    <ClCompile Include="CF.cpp" />
+    <ClCompile Include="CFAsm.cpp" />
+    <ClCompile Include="Context.cpp" />
+    <ClCompile Include="DebugData.cpp" />
+    <ClCompile Include="DebugInfo.cpp" />
+    <ClCompile Include="DecodedInstr.cpp" />
+    <ClCompile Include="EmitCode.cpp" />
+    <ClCompile Include="ErrCodes.cpp" />
+    <ClCompile Include="Instruction.cpp" />
+    <ClCompile Include="InstructionMap.cpp" />
+    <ClCompile Include="InstructionRepository.cpp" />
+    <ClCompile Include="Instructions\Mac.cpp" />
+    <ClCompile Include="Isa.cpp" />
+    <ClCompile Include="MapFile.cpp" />
+    <ClCompile Include="MarkArea.cpp" />
+    <ClCompile Include="Peripheral.cpp" />
+    <ClCompile Include="PeripheralRepository.cpp" />
+    <ClCompile Include="Peripherals\BlockDevice.cpp" />
+    <ClCompile Include="Peripherals\Dummy.cpp" />
+    <ClCompile Include="Peripherals\font5x7.cpp" />
+    <ClCompile Include="Peripherals\LEDSegments.cpp" />
+    <ClCompile Include="Peripherals\SimpleGPIO.cpp" />
+    <ClCompile Include="Peripherals\SimpleInterruptController.cpp" />
+    <ClCompile Include="Peripherals\SimpleLCDController.cpp" />
+    <ClCompile Include="Peripherals\SimpleOut.cpp" />
+    <ClCompile Include="Peripherals\SimpleTimer.cpp" />
+    <ClCompile Include="Peripherals\SimpleUART.cpp" />
+    <ClCompile Include="RegisterNames.cpp" />
+    <ClCompile Include="Simulator.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Instructions\Add.cpp" />
+    <ClCompile Include="Instructions\AddA.cpp" />
+    <ClCompile Include="Instructions\AddQ.cpp" />
+    <ClCompile Include="Instructions\And.cpp" />
+    <ClCompile Include="Instructions\AndI.cpp" />
+    <ClCompile Include="Instructions\Bit.cpp" />
+    <ClCompile Include="Instructions\BitRev.cpp" />
+    <ClCompile Include="Instructions\Branch.cpp" />
+    <ClCompile Include="Instructions\Clr.cpp" />
+    <ClCompile Include="Instructions\Cmp.cpp" />
+    <ClCompile Include="Instructions\Cpushl.cpp" />
+    <ClCompile Include="Instructions\Div.cpp" />
+    <ClCompile Include="Instructions\Ext.cpp" />
+    <ClCompile Include="Instructions\Filler.cpp" />
+    <ClCompile Include="Instructions\Halt.cpp" />
+    <ClCompile Include="Instructions\Illegal.cpp" />
+    <ClCompile Include="Instructions\Jump.cpp" />
+    <ClCompile Include="Instructions\Lea.cpp" />
+    <ClCompile Include="Instructions\LinkUnlink.cpp" />
+    <ClCompile Include="Instructions\Move.cpp" />
+    <ClCompile Include="Instructions\MoveC.cpp" />
+    <ClCompile Include="Instructions\MoveM.cpp" />
+    <ClCompile Include="Instructions\MoveQ.cpp" />
+    <ClCompile Include="Instructions\MoveToSr.cpp" />
+    <ClCompile Include="Instructions\Mul.cpp" />
+    <ClCompile Include="Instructions\Nop.cpp" />
+    <ClCompile Include="Instructions\NotNeg.cpp" />
+    <ClCompile Include="Instructions\Ori.cpp" />
+    <ClCompile Include="Instructions\Rts.cpp" />
+    <ClCompile Include="Instructions\Set.cpp" />
+    <ClCompile Include="Instructions\Shift.cpp" />
+    <ClCompile Include="Instructions\Stop.cpp" />
+    <ClCompile Include="Instructions\Sub.cpp" />
+    <ClCompile Include="Instructions\SubQ.cpp" />
+    <ClCompile Include="Instructions\Swap.cpp" />
+    <ClCompile Include="Instructions\Test.cpp" />
+    <ClCompile Include="Instructions\Trap.cpp" />
+    <ClCompile Include="BinaryProgram.cpp" />
+    <ClCompile Include="Instructions\FF1.cpp" />
+    <ClCompile Include="Instructions\InTouch.cpp" />
+    <ClCompile Include="Instructions\Mov.cpp" />
+    <ClCompile Include="Instructions\Pulse.cpp" />
+    <ClCompile Include="Instructions\Sats.cpp" />
+    <ClCompile Include="Instructions\Tpf.cpp" />
+    <ClCompile Include="Instructions\WDData.cpp" />
+    <ClCompile Include="OutputPointer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Asm.h" />
+    <ClInclude Include="Assembler.h" />
+    <ClInclude Include="BasicTypes.h" />
+    <ClInclude Include="CF.h" />
+    <ClInclude Include="CFAsm.h" />
+    <ClInclude Include="Context.h" />
+    <ClInclude Include="CpuExceptions.h" />
+    <ClInclude Include="DebugData.h" />
+    <ClInclude Include="DebugInfo.h" />
+    <ClInclude Include="DecodedInstr.h" />
+    <ClInclude Include="EmitCode.h" />
+    <ClInclude Include="ErrCodes.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Export.h" />
+    <ClInclude Include="FixedString.h" />
+    <ClInclude Include="HexNumber.h" />
+    <ClInclude Include="Ident.h" />
+    <ClInclude Include="ImplDetails.h" />
+    <ClInclude Include="Import.h" />
+    <ClInclude Include="Instruction.h" />
+    <ClInclude Include="InstructionMap.h" />
+    <ClInclude Include="InstructionRange.h" />
+    <ClInclude Include="InstructionRepository.h" />
+    <ClInclude Include="InterruptController.h" />
+    <ClInclude Include="Isa.h" />
+    <ClInclude Include="MachineDefs.h" />
+    <ClInclude Include="MapFile.h" />
+    <ClInclude Include="MarkArea.h" />
+    <ClInclude Include="OpcodeDefs.h" />
+    <ClInclude Include="BinaryProgram.h" />
+    <ClInclude Include="Peripheral.h" />
+    <ClInclude Include="PeripheralDevice.h" />
+    <ClInclude Include="PeripheralRepository.h" />
+    <ClInclude Include="Peripherals\BlockDevice.h" />
+    <ClInclude Include="Peripherals\Dummy.h" />
+    <ClInclude Include="Peripherals\LEDSegments.h" />
+    <ClInclude Include="Peripherals\SimpleGPIO.h" />
+    <ClInclude Include="Peripherals\SimpleInterruptController.h" />
+    <ClInclude Include="Peripherals\SimpleLCDController.h" />
+    <ClInclude Include="Peripherals\SimpleOut.h" />
+    <ClInclude Include="Peripherals\SimpleTimer.h" />
+    <ClInclude Include="Peripherals\SimpleUART.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Simulator.h" />
+    <ClInclude Include="Stat.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Breakpoints.h" />
+    <ClInclude Include="OutputPointer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

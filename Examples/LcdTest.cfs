@@ -1,0 +1,42 @@
+; Title: Test LCD display windows in CF simulator
+
+	include "Monitor.cfs"
+
+	*= $10000
+
+Start:
+
+	moveq #50, d7
+	moveq #3, d6
+
+.loop
+	lea $00f00000, a0
+
+	move.l d6, d0
+	moveq #80, d1
+.next
+	move.l d0, (a0)+
+;	lsl #3, d0
+;	bne.s .skp
+	; reload
+;	move.l d6, d0
+;.skp
+	subq #1, d1
+	bpl.s .next
+
+	move.l #100, d0
+	M_Sleep
+
+	lsl #2, d6
+	bne.s .skp
+	moveq #3, d6
+.skp
+
+	subq #1, d7
+	bpl.s .loop
+
+	; terminate program
+	clr.w -(sp)
+	trap #15
+
+	end Start
